@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Infraestructure.Models.Asignacion>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Pagos de la Residencia @Html.DisplayNameFor(model => model.Residencia.NoCondominio)</h2>
+<br/>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaPago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deuda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Residencia.Usuario.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Residencia.Usuario.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plan.Descrpcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plan.Total)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaPago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deuda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Residencia.Usuario.Nombre) @Html.DisplayFor(modelItem => item.Residencia.Usuario.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Residencia.Usuario.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plan.Descrpcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plan.Total)
+            </td>
+        </tr>
+    }
+</table>
+<br/>
+<p>
+    <a href="@Url.Action("Index", "Asignacion")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
+</p>

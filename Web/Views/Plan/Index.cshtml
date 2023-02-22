@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Infraestructure.Models.Plan>
+
+@{
+    ViewBag.Title = "Planes";
+}
+
+<h2>Listado de Planes de Cobro</h2>
+
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrpcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descrpcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @*<a href="@Url.Action("Editar", "Plan", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
+                <a href="@Url.Action("Details", "Plan", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+<p>
+    @*@<a href="@Url.Action("Create", "Plan")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>*@
+</p>

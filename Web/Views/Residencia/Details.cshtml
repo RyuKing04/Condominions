@@ -1,0 +1,83 @@
+﻿@model Infraestructure.Models.Residencia
+
+@{
+    ViewBag.Title = "Detalle de la Residencia";
+}
+
+<h2>Detalles de Residencia o Condominio @Html.DisplayFor(model => model.NoCondominio)</h2>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Estado)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AnnoInicio)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AnnoInicio)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CantPersonas)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CantPersonas)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CantCarros)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CantCarros)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    
+    <br />
+    <h5> Datos del Residente</h5>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nombre)  @Html.DisplayFor(model => model.Usuario.Apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.FechaNacimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.FechaNacimiento)
+        </dd>
+    </dl>
+</div>
+<br/>
+<p>
+    @*<a href=" @Url.Action("Edit", "Residencia", new { id = Model.id }) " class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
+    <a href="@Url.Action("Index", "Residencia")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
+</p>

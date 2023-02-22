@@ -1,0 +1,37 @@
+﻿@model Infraestructure.Models.Plan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles del @Html.DisplayFor(model => model.Descrpcion)</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rubro)s
+        </dt>
+    </dl>
+
+        <ul>
+            @foreach (var c in Model.Rubro)
+            {
+                <li>@c.Descrpicion: @c.Precio</li>
+            }
+        </ul>
+    
+</div>
+<br/>
+<p>
+    @*a href=" @Url.Action("Edit", "Plan", new { id = Model.Id }) " class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
+    <a href="@Url.Action("Index", "Plan")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
+</p>

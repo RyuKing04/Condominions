@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Infraestructure.Models.Asignacion>
+
+@{
+    ViewBag.Title = "Estados de Cuenta";
+}
+
+<h2>Listado de Estados de Cuenta</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Residencia.Usuario.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Residencia.NoCondominio)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Residencia.Usuario.Nombre) @Html.DisplayFor(modelItem => item.Residencia.Usuario.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Residencia.NoCondominio)
+            </td>
+            <td>
+                @*<a href="@Url.Action("Editar", "Asignacion", new { id = item.Id})" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
+                <a href="@Url.Action("Details", "Asignacion", new { id = item.IdResidencia, active = false })" class="btn btn-secondary"><i class="fa-solid fa-receipt"></i> Historial de Pagos</a>
+                <a href="@Url.Action("Details", "Asignacion", new { id = item.IdResidencia, active = true })" class="btn btn-secondary"><i class="fa-solid fa-credit-card"></i> Deudas</a>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+<p>
+    @*<a href="@Url.Action("Create", "Asignacion")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>*@
+</p>
