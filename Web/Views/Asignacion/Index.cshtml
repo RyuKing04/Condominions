@@ -27,14 +27,14 @@
                 @Html.DisplayFor(modelItem => item.Residencia.NoCondominio)
             </td>
             <td>
-                @*<a href="@Url.Action("Editar", "Asignacion", new { id = item.Id})" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
-                <a href="@Url.Action("Details", "Asignacion", new { id = item.IdResidencia, active = false })" class="btn btn-secondary"><i class="fa-solid fa-receipt"></i> Historial de Pagos</a>
-                <a href="@Url.Action("Details", "Asignacion", new { id = item.IdResidencia, active = true })" class="btn btn-secondary"><i class="fa-solid fa-credit-card"></i> Deudas</a>
+                @*<a style="background:rgb(159, 126, 0)" href="@Url.Action("Editar", "Asignacion", new { id = item.Id})" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
+                <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "Asignacion", new { id = item.IdResidencia, active = false })" class="btn btn-secondary"><i class="fa-solid fa-receipt"></i> Historial de Pagos</a>
+                <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "Asignacion", new { id = item.IdResidencia, active = true })" class="btn btn-secondary"><i class="fa-solid fa-credit-card"></i> Deudas</a>
             </td>
         </tr>
     }
 </table>
 <br />
 <p>
-    @*<a href="@Url.Action("Create", "Asignacion")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>*@
+    @*<a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Asignacion")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>*@
 </p>

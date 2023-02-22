@@ -4,10 +4,13 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Pagos de la Residencia @Html.DisplayNameFor(model => model.Residencia.NoCondominio)</h2>
+<h2>Pagos de la Residencia </h2>
 <br/>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Residencia.NoCondominio)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.FechaPago)
         </th>
@@ -32,6 +35,9 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Residencia.NoCondominio)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.FechaPago)
             </td>
             <td>
@@ -54,5 +60,5 @@
 </table>
 <br/>
 <p>
-    <a href="@Url.Action("Index", "Asignacion")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
+    <a  style="background:rgb(159, 126, 0)" href="@Url.Action("Index", "Asignacion")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
 </p>
