@@ -12,25 +12,25 @@ namespace ApplicationCore.Service
     {
         public IEnumerable<AreaComun> GetAreaComun()
         {
-            IServiceAreaComun repository = new ServiceAreaComun();
+            IRepositoryAreaComun repository = new RepositoryAreaComun();
             return repository.GetAreaComun();
         }
 
         public IEnumerable<AreaComun> GetAreaComunByDisponibilidad(bool estado)
         {
-            IServiceAreaComun repository = new ServiceAreaComun();
+            IRepositoryAreaComun repository = new RepositoryAreaComun();
             return repository.GetAreaComunByDisponibilidad(estado);
         }
 
         public AreaComun GetAreaComunByID(int id)
         {
-            IServiceAreaComun repository = new ServiceAreaComun();
+            IRepositoryAreaComun repository = new RepositoryAreaComun();
             return repository.GetAreaComunByID(id);
         }
 
         public AreaComun SaveAreaComun(AreaComun areaComun)
         {
-            IServiceAreaComun repository = new ServiceAreaComun();
+            IRepositoryAreaComun repository = new RepositoryAreaComun();
             return repository.SaveAreaComun(areaComun);
         }
     }

@@ -1,0 +1,56 @@
+﻿@model Infraestructure.Models.Usuario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Información del Usuario</h2>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Nombre) @Html.DisplayFor(model => model.Apellido)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rol)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Rol)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FechaNacimiento)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FechaNacimiento)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<br />
+<p>
+    @*<a style="background:rgb(159, 126, 0)" href=" @Url.Action("Edit", "Usuario", new { id = Model.id }) " class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
+    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Index", "Usuario")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
+</p>

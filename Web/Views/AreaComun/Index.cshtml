@@ -1,80 +1,25 @@
 ﻿@model IEnumerable<Infraestructure.Models.AreaComun>
 
-<h2>Áreas Comunes </h2>
 
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<h2 style="text-align:center">Áreas Comunes </h2>
+<br />
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-lg-4">
+        <div class="col-lg-4" style="margin: 0 auto">
             <div class="card">
                 <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.foto)"
-                     alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" />
-                <div class="card-body">
+                     alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="height:300px" />
+                <div class="card-body" style="text-align:center">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
-                    <br/>
-                    <a href="@Url.Action("Details", "AreaComun", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
+                    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "AreaComun", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-2">
+            <br />
         </div>
     }
 </div>
-
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.foto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Disponibilidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HoraInicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HoraFin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TarifaPorHora)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.foto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Disponibilidad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraInicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraFin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TarifaPorHora)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                </td>
-            </tr>
-        }
-
-    </table>
-*@

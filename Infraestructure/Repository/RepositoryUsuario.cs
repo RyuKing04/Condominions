@@ -54,8 +54,7 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oUsuario=ctx.Usuario.Find(id);
-
+                    oUsuario=ctx.Usuario.Include("Residencia").Where(c => c.Id == id).FirstOrDefault();
                 }
                 return oUsuario;
             }

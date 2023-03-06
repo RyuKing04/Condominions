@@ -112,12 +112,14 @@ namespace Infraestructure.Models
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public bool Disponibilidad { get; set; }
 
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}")]
         [Display(Name = "Inicio del Horario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime HoraInicio { get; set; }
 
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:Thh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}")]
         [Display(Name = "Fin del Horario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime HoraFin { get; set; }

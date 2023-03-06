@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Infraestructure.Models.Usuario>
+
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+<h2>Listado de Usuarios</h2>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @*<a style="background:rgb(159, 126, 0)" href="@Url.Action("Editar", "Usuario", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
+                <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "Usuario", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+<p>
+    @*a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Residencia")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>*@
+</p>

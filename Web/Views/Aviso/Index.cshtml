@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Infraestructure.Models.Avisos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2 style="text-align:center">Avisos</h2>
+<br />
+@*<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4" style="margin: 0 auto">
+            <div class="card">
+                @if (item.Documento != null)
+                {
+                    <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="height:300px" />
+                }
+                <div class="card-body" style="text-align:center">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
+                    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "AreaComun", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+</div>*@
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoAviso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Documento)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoAviso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @if (item.Documento != null)
+                {
+                    <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="width:300px" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>

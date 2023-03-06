@@ -1,0 +1,50 @@
+﻿@model Infraestructure.Models.AreaComun
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles de @Html.DisplayFor(model => model.Descripcion)</h2>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-lg">
+            <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(Model.foto)" alt="@Html.DisplayFor(model => model.Descripcion)" class="img-thumbnail" style="height:300px; float:right" />
+        </div>
+        <div class="col-lg">
+            <dl class="dl-horizontal">
+                <br />
+                <br />
+                <dt>
+                    @Html.DisplayNameFor(model => model.HoraInicio)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HoraInicio)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.HoraFin)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HoraFin)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TarifaPorHora)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TarifaPorHora)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    
+</div>
+<br />
+<p>
+    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Index", "AreaComun")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
+</p>

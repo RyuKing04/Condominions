@@ -1,20 +1,17 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <img src="~/Content/LOGO.png" height="50" />
-        
+
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        @Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "dropdown-item" })
-                        <span class="visually-hidden">(current)</span>
-                    </a>
+                    @Html.ActionLink("Inicio", "Index", "AreaComun", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Avisos</a>
                     <div class="dropdown-menu">
-                        @Html.ActionLink("Ver Avisos", "Create", "Asignacion", null, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Crear un Aviso", "Create", "Asignacion", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Ver Avisos", "Index", "Aviso", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Crear un Aviso", "Create", "Aviso", null, new { @class = "dropdown-item" })
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -22,23 +19,28 @@
                     <div class="dropdown-menu">
                         @Html.ActionLink("Planes de Cobro", "Index", "Plan", null, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Asignaciones", "Index", "Asignacion", null, new { @class = "dropdown-item" })
+                        <div class="dropdown-divider"></div>
                         @Html.ActionLink("Residencias", "Index", "Residencia", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Usuarios", "Index", "Usuario", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Reservas", "Index", "Reserva", null, new { @class = "dropdown-item" })
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Reportes", "", "", null, new { @class = "dropdown-item" })
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Asignación y Pago</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pagos y Reservas</a>
                     <div class="dropdown-menu">
-                        @Html.ActionLink("Asignaciones", "Index", "Asignacion", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Ver Asignación", "", "Asignacion", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Asignar Plan", "Create", "Asignacion", null, new { @class = "dropdown-item" })
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Ver Reserva", "", "Reserva", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Reservar", "Create", "Reserva", null, new { @class = "dropdown-item" })
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Reportes", "", "", null, new { @class = "dropdown-item" })
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reportes</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Por modificar...</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown" style="float:right">
+                <li class="nav-item dropdown" style="text-align:right">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                        href="#" role="button" aria-haspopup="true"
                        aria-expanded="false"><i class="fa-solid fa-user"></i> Iniciar Sesión</a>
@@ -53,7 +55,7 @@
                     </div>
                 </li>
             </ul>
-            
+
         </div>
     </div>
 </nav>
