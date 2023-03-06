@@ -14,5 +14,6 @@ namespace ApplicationCore.Service
         AreaComun SaveAreaComun(AreaComun areaComun);
         IEnumerable<AreaComun> GetAreaComunByDisponibilidad(Boolean estado);
 
+
     }
 }
