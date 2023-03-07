@@ -148,6 +148,7 @@
     <Compile Include="Controllers\PlanController.cs" />
     <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Controllers\ResidenciaController.cs" />
+    <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -241,6 +242,9 @@
     <Content Include="Views\Usuario\Details.cshtml" />
     <Content Include="Views\AreaComun\Details.cshtml" />
     <Content Include="Views\Aviso\Index.cshtml" />
+    <Content Include="Views\Rubro\Index.cshtml" />
+    <Content Include="Views\Rubro\Create.cshtml" />
+    <Content Include="Views\Rubro\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

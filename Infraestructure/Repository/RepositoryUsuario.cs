@@ -69,7 +69,8 @@ namespace Infraestructure.Repository
                 string mensaje = "";
                 Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw;
-            }        }
+            }       
+        }
 
         public Usuario Save(Usuario usuario)
         {

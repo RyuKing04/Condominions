@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Infraestructure.Models.Rubro>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Listado de Rubro de cobro</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrpicion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descrpicion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+
+            <td>
+                <a style="background:rgb(159, 126, 0)" href="@Url.Action("Edit", "Rubro", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>
+                <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "Rubro", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
+            </td>
+        </tr>
+
+    }
+
+</table>
+<br />
+<p>
+  <a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Rubro")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>
+</p>
