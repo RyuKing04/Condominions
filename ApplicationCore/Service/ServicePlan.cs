@@ -22,10 +22,10 @@ namespace ApplicationCore.Service
             return repository.GetPlanByID(id);
         }
 
-        public Plan SavePlan(Plan plan)
+        public Plan SavePlan(Plan plan, string[] selectedRubros)
         {
             IRepositoryPlan repository = new RepositoryPlan();
-            return repository.SavePlan(plan);
+            return repository.SavePlan(plan, selectedRubros);
         }
     }
 }

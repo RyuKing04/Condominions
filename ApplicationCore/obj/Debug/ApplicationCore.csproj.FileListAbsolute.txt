@@ -40,3 +40,5 @@ C:\Users\Antonio Ramirez\Condominions\ApplicationCore\obj\Debug\ApplicationCore.
 C:\Users\Antonio Ramirez\Condominions\ApplicationCore\obj\Debug\ApplicationCore.csproj.CopyComplete
 C:\Users\Antonio Ramirez\Condominions\ApplicationCore\obj\Debug\ApplicationCore.dll
 C:\Users\Antonio Ramirez\Condominions\ApplicationCore\obj\Debug\ApplicationCore.pdb
+C:\Users\Palita\Desktop\Condominions\ApplicationCore\obj\Debug\ApplicationCore.csproj.AssemblyReference.cache
+C:\Users\Palita\Desktop\Condominions\ApplicationCore\obj\Debug\ApplicationCore.csproj.CoreCompileInputs.cache

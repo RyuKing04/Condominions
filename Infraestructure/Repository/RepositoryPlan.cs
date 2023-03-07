@@ -3,6 +3,7 @@ using Infraestructure.Models;
 using Infraestructure.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -68,9 +69,63 @@ namespace Infraestructure.Repository
             }
         }
 
-        public Plan SavePlan(Plan plan)
+        public Plan SavePlan(Plan plan, string[] selectedRubros)
         {
-            throw new NotImplementedException();
+            int retorno = 0;
+            decimal total = 0;
+            Plan oPlan = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oPlan = GetPlanByID((int)plan.Id);
+                IRepositoryRubro _RepositoryRubro = new RepositoryRubro();
+
+                if (oPlan == null)
+                {
+                    if (selectedRubros != null)
+                    {
+                        plan.Rubro = new List<Rubro>();
+                        foreach (var rubro in selectedRubros)
+                        {
+                            var rubroToAdd = _RepositoryRubro.GetRubroByID(int.Parse(rubro));
+                            ctx.Rubro.Attach(rubroToAdd); 
+                            plan.Rubro.Add(rubroToAdd);
+                            total += rubroToAdd.Precio; //ACUMULA EL PRECIO DE CADA RUBRO QUE VA A TENER EL PLAN
+                        }
+                    }
+                    plan.Total = total; // ASIGNA EL ACUMULADO AL TOTAL DEL PLAN
+                    ctx.Plan.Add(plan);
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+                    //Actualizar Plan
+                    ctx.Plan.Add(plan);
+                    ctx.Entry(plan).State = EntityState.Modified;
+                    retorno = ctx.SaveChanges();
+
+                    //Actualizar Rubros
+                    var selectedRubrosXid = new HashSet<string>(selectedRubros);
+                    if (selectedRubros != null)
+                    {
+                        //FALTA EL CALCULO DEL TOTAL DEL PLAN AL MOMENTO DE ACTUALIZAR
+                        ctx.Entry(plan).Collection(p => p.Rubro).Load();
+                        var newRubroForPlan = ctx.Rubro.Where(x => selectedRubrosXid.Contains(x.Id.ToString())).ToList();
+                        plan.Rubro = newRubroForPlan;
+
+                        ctx.Entry(plan).State = EntityState.Modified;
+                        retorno = ctx.SaveChanges();
+                    }
+                }
+            }
+
+            if (retorno >= 0)
+                oPlan = GetPlanByID((int)plan.Id);
+
+            return oPlan;
         }
+
+        
     }
 }

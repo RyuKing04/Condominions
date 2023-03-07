@@ -2,6 +2,7 @@
 using Infraestructure.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -82,8 +83,8 @@ namespace Web.Controllers
         // GET: Plan/Create
         public ActionResult Create()
         {
+            ViewBag.listaRubros = listaRubro();
             return View();
-            ViewBag.Id = listaRubro();
         }
 
         // POST: Plan/Create
@@ -102,10 +103,84 @@ namespace Web.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Save(Plan plan, string[] selectedRubros)
+        {
+            IServicePlan _ServicePlan = new ServicePlan();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Plan oPlan = _ServicePlan.SavePlan(plan, selectedRubros);
+                }
+                else
+                {
+                    // Valida Errores si Javascript está deshabilitado
+                    //System.Web.Util.ValidateErrors(this);
+                    ViewBag.idPlan = listaRubro(plan.Rubro);
+                    //Cargar la vista crear o actualizar
+                    //Lógica para cargar vista correspondiente
+                    if (plan.Id > 0)
+                    {
+                        return (ActionResult)View("Edit", plan);
+                    }
+                    else
+                    {
+                        return View("Create", plan);
+                    }
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
         // GET: Plan/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            IServicePlan _ServicePlan = new ServicePlan();
+            Plan plan = null;
+
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                plan = _ServicePlan.GetPlanByID(Convert.ToInt32(id));
+                if (plan == null)
+                {
+                    TempData["Message"] = "No existe el libro solicitado";
+                    TempData["Redirect"] = "Libro";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+                //Listados
+                ViewBag.idPlan = listaRubro(plan.Rubro);
+                return View(plan);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // POST: Plan/Edit/5

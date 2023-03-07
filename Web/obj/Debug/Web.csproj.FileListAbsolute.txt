@@ -257,3 +257,5 @@ C:\Users\Antonio Ramirez\Condominions\Web\obj\Debug\Web.csproj.CoreCompileInputs
 C:\Users\Antonio Ramirez\Condominions\Web\obj\Debug\Web.csproj.CopyComplete
 C:\Users\Antonio Ramirez\Condominions\Web\obj\Debug\Web.dll
 C:\Users\Antonio Ramirez\Condominions\Web\obj\Debug\Web.pdb
+C:\Users\Palita\Desktop\Condominions\Web\obj\Debug\Web.csproj.AssemblyReference.cache
+C:\Users\Palita\Desktop\Condominions\Web\obj\Debug\Web.csproj.CoreCompileInputs.cache

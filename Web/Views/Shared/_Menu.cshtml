@@ -17,11 +17,13 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mantenimientos</a>
                     <div class="dropdown-menu">
+                        @Html.ActionLink("Rubros de Cobro", "Index", "Rubro", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Planes de Cobro", "Index", "Plan", null, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>
                         @Html.ActionLink("Asignaciones", "Index", "Asignacion", null, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>
                         @Html.ActionLink("Residencias", "Index", "Residencia", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Visitantes", "Index", "Visitante", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Usuarios", "Index", "Usuario", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Reservas", "Index", "Reserva", null, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>

@@ -11,6 +11,6 @@ namespace ApplicationCore.Service
     {
         IEnumerable<Plan> GetPlan();
         Plan GetPlanByID(int id);
-        Plan SavePlan(Plan plan);
+        Plan SavePlan(Plan plan, string[] selectedRubros);
     }
 }

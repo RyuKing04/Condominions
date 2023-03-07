@@ -1,18 +1,17 @@
 ﻿@model Infraestructure.Models.Rubro
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar";
 }
 
-<h2>Edit</h2>
+<h2>Edición de Rubro</h2>
 
 
 @using (Html.BeginForm("Save", "Rubro", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Rubro</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -42,6 +41,11 @@
         </div>
     </div>
 }
+
+<br />
+<p>
+    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Index", "Rubro")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
+</p>
 
 
 @section Scripts {
