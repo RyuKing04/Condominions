@@ -81,6 +81,7 @@ namespace Web.Controllers
         }
 
         // GET: Plan/Create
+        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.listaRubros = listaRubro();

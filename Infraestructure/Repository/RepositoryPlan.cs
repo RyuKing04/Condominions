@@ -109,11 +109,18 @@ namespace Infraestructure.Repository
                     var selectedRubrosXid = new HashSet<string>(selectedRubros);
                     if (selectedRubros != null)
                     {
+                        foreach (var rubro in selectedRubros)
+                        {
+                            var rubroToAdd = _RepositoryRubro.GetRubroByID(int.Parse(rubro));
+                            ctx.Rubro.Attach(rubroToAdd);
+                            plan.Rubro.Add(rubroToAdd);
+                            total += rubroToAdd.Precio;
+                        }
                         //FALTA EL CALCULO DEL TOTAL DEL PLAN AL MOMENTO DE ACTUALIZAR
                         ctx.Entry(plan).Collection(p => p.Rubro).Load();
                         var newRubroForPlan = ctx.Rubro.Where(x => selectedRubrosXid.Contains(x.Id.ToString())).ToList();
                         plan.Rubro = newRubroForPlan;
-
+                        plan.Total = total;
                         ctx.Entry(plan).State = EntityState.Modified;
                         retorno = ctx.SaveChanges();
                     }
