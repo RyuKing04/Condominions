@@ -77,7 +77,7 @@ namespace Web.Controllers
                 listaRubroSelect = rubros.Select(c => c.Id).ToArray();
             }
 
-            return new MultiSelectList(lista, "Id", "Descripcion", listaRubroSelect);
+            return new MultiSelectList(lista, "Id", "Descrpicion", listaRubroSelect);
         }
 
         // GET: Plan/Create
@@ -118,7 +118,7 @@ namespace Web.Controllers
                 {
                     // Valida Errores si Javascript está deshabilitado
                     //System.Web.Util.ValidateErrors(this);
-                    ViewBag.idPlan = listaRubro(plan.Rubro);
+                    ViewBag.listaRubros = listaRubro(plan.Rubro);
                     //Cargar la vista crear o actualizar
                     //Lógica para cargar vista correspondiente
                     if (plan.Id > 0)
@@ -138,8 +138,8 @@ namespace Web.Controllers
                 // Salvar el error en un archivo 
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData["Redirect"] = "PLan";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
@@ -162,14 +162,14 @@ namespace Web.Controllers
                 plan = _ServicePlan.GetPlanByID(Convert.ToInt32(id));
                 if (plan == null)
                 {
-                    TempData["Message"] = "No existe el libro solicitado";
-                    TempData["Redirect"] = "Libro";
+                    TempData["Message"] = "No existe el plan solicitado";
+                    TempData["Redirect"] = "Plan";
                     TempData["Redirect-Action"] = "Index";
                     // Redireccion a la captura del Error
                     return RedirectToAction("Default", "Error");
                 }
                 //Listados
-                ViewBag.idPlan = listaRubro(plan.Rubro);
+                ViewBag.listaRubros = listaRubro(plan.Rubro);
                 return View(plan);
             }
             catch (Exception ex)
@@ -177,8 +177,8 @@ namespace Web.Controllers
                 // Salvar el error en un archivo 
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData["Redirect"] = "Plan";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
