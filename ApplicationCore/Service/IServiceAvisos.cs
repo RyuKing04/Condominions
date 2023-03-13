@@ -11,7 +11,7 @@ namespace ApplicationCore.Service
     public interface IServiceAvisos
     {
         Avisos SaveAvisos(Avisos aviso);
-        IEnumerable<Avisos> GetAvisos();
+        IEnumerable<Avisos> GetAvisos(bool active);
         IEnumerable<Avisos> GetAvisosByIdUsuario(int idUsuario);
         Avisos GetAvisosByID(int id);
     }

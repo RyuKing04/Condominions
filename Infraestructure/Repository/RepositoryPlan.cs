@@ -72,7 +72,7 @@ namespace Infraestructure.Repository
         public Plan SavePlan(Plan plan, string[] selectedRubros)
         {
             int retorno = 0;
-            decimal total = 0;
+            int total = 0;
             Plan oPlan = null;
 
             using (MyContext ctx = new MyContext())
@@ -83,6 +83,7 @@ namespace Infraestructure.Repository
 
                 if (oPlan == null)
                 {
+                    //Crear Plan
                     if (selectedRubros != null)
                     {
                         plan.Rubro = new List<Rubro>();

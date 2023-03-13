@@ -13,7 +13,7 @@ namespace Infraestructure.Repository
 {
     public class RepositoryAvisos : IRepositoryAvisos
     {
-        public IEnumerable<Avisos> GetAvisos()
+        public IEnumerable<Avisos> GetAvisos(bool active)
         {
             try
             {
@@ -21,12 +21,20 @@ namespace Infraestructure.Repository
                 IEnumerable<Avisos> lista = null;
                 using (MyContext ctx = new MyContext())
                 {
-                    ctx.Configuration.LazyLoadingEnabled = false;
-                    lista = ctx.Avisos.ToList<Avisos>();
-                }
-                return lista;
-            }
+                    if (active)
+                    {
+                        ctx.Configuration.LazyLoadingEnabled = false;
+                        lista = ctx.Avisos.Where(x=> x.TipoAviso=="Información").ToList<Avisos>();
+                    }
+                    else
+                    {
+                        ctx.Configuration.LazyLoadingEnabled = true;
+                        lista = ctx.Avisos.Where(x => x.TipoAviso == "Incidencia").ToList<Avisos>();
 
+                    }
+                    return lista;
+                }
+            }
             catch (DbUpdateException dbEx)
             {
                 string mensaje = "";

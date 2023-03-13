@@ -10,10 +10,10 @@ namespace ApplicationCore.Service
 {
     public class ServiceAvisos : IServiceAvisos
     {
-        public IEnumerable<Avisos> GetAvisos()
+        public IEnumerable<Avisos> GetAvisos(bool active)
         {
             IRepositoryAvisos repository = new RepositoryAvisos();
-            return repository.GetAvisos();
+            return repository.GetAvisos(active);
         }
 
         public Avisos GetAvisosByID(int id)

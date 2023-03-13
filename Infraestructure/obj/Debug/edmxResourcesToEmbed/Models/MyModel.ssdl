@@ -10,7 +10,7 @@
     <Property Name="Disponibilidad" Type="bit" Nullable="false" />
     <Property Name="HoraInicio" Type="datetime" Nullable="false" />
     <Property Name="HoraFin" Type="datetime" Nullable="false" />
-    <Property Name="TarifaPorHora" Type="money" Nullable="false" />
+    <Property Name="TarifaPorHora" Type="decimal" Precision="18" Scale="0" Nullable="false" />
   </EntityType>
   <EntityType Name="Asignacion">
     <Key>
@@ -41,7 +41,7 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Descrpcion" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Total" Type="money" Nullable="false" />
+    <Property Name="Total" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Reserva">
     <Key>
@@ -74,7 +74,7 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Descrpicion" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Precio" Type="money" Nullable="false" />
+    <Property Name="Precio" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="RubroPlan">
     <Key>

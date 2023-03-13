@@ -13,13 +13,13 @@ namespace Web.Controllers
     public class AvisoController : Controller
     {
         // GET: Aviso
-        public ActionResult Index()
+        public ActionResult Index(bool active)
         {
             IEnumerable<Avisos> lista = null;
             try
             {
                 IServiceAvisos _ServiceAvisos = new ServiceAvisos();
-                lista = _ServiceAvisos.GetAvisos();
+                lista = _ServiceAvisos.GetAvisos(active);
             }
             catch (Exception ex)
             {

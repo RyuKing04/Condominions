@@ -15,7 +15,7 @@
           <Property Name="Disponibilidad" Type="bit" Nullable="false" />
           <Property Name="HoraInicio" Type="datetime" Nullable="false" />
           <Property Name="HoraFin" Type="datetime" Nullable="false" />
-          <Property Name="TarifaPorHora" Type="money" Nullable="false" />
+          <Property Name="TarifaPorHora" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Asignacion">
           <Key>
@@ -46,7 +46,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Descrpcion" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Total" Type="money" Nullable="false" />
+          <Property Name="Total" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Reserva">
           <Key>
@@ -79,7 +79,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Descrpicion" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Precio" Type="money" Nullable="false" />
+          <Property Name="Precio" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RubroPlan">
           <Key>
@@ -285,7 +285,7 @@
           <Property Name="Disponibilidad" Type="Boolean" Nullable="false" />
           <Property Name="HoraInicio" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="HoraFin" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TarifaPorHora" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="TarifaPorHora" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <NavigationProperty Name="Reserva" Relationship="Self.FK_Reserva_AreaComun" FromRole="AreaComun" ToRole="Reserva" />
         </EntityType>
         <EntityType Name="Asignacion">
@@ -320,7 +320,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Descrpcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Total" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Asignacion" Relationship="Self.FK_Asignacion_Plan" FromRole="Plan" ToRole="Asignacion" />
           <NavigationProperty Name="Rubro" Relationship="Self.RubroPlan" FromRole="Plan" ToRole="Rubro" />
         </EntityType>
@@ -360,7 +360,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Descrpicion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Precio" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Plan" Relationship="Self.RubroPlan" FromRole="Rubro" ToRole="Plan" />
         </EntityType>
         <EntityType Name="Usuario">

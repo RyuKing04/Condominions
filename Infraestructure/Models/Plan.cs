@@ -11,10 +11,7 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    [MetadataType(typeof(PlanMetadata))]
-
+    
     public partial class Plan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,7 +23,7 @@ namespace Infraestructure.Models
     
         public int Id { get; set; }
         public string Descrpcion { get; set; }
-        public decimal Total { get; set; }
+        public int Total { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asignacion> Asignacion { get; set; }

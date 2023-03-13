@@ -11,10 +11,7 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    [MetadataType(typeof(AsignacionMetadata))]
-
+    
     public partial class Asignacion
     {
         public int Id { get; set; }
