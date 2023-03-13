@@ -1,30 +1,40 @@
 ﻿@model IEnumerable<Infraestructure.Models.Avisos>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Avisos";
 }
 
 
+@if (ViewBag.active)
+{
+
+
 <h2 style="text-align:center">Avisos</h2>
+}
+else
+            {
+<h2 style="text-align:center">Incidencias</h2>
+            }
+
 <br />
 @*<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-lg-4" style="margin: 0 auto">
-            <div class="card">
-                @if (item.Documento != null)
-                {
-                    <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="height:300px" />
-                }
-                <div class="card-body" style="text-align:center">
-                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
-                    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "AreaComun", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4" style="margin: 0 auto">
+                <div class="card">
+                    @if (item.Documento != null)
+                    {
+                        <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="height:300px" />
+                    }
+                    <div class="card-body" style="text-align:center">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
+                        <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "AreaComun", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
+                    </div>
                 </div>
+                <br />
             </div>
-            <br />
-        </div>
-    }
-</div>*@
+        }
+    </div>*@
 
 <table class="table">
     <tr>
@@ -37,6 +47,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Documento)
         </th>
+        @if (ViewBag.active)
+        {
+            <td></td>
+        }
     </tr>
 
     @foreach (var item in Model)
@@ -45,7 +59,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
-           
+
             <td>
                 @Html.DisplayFor(modelItem => item.Fecha)
             </td>
@@ -54,8 +68,22 @@
                 {
                     <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="width:300px" />
                 }
+
+
             </td>
+
+            @if (ViewBag.active)
+            {
+                <td>
+                    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Editar", "Aviso", new { id = item.id , active= ViewBag.active})" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>
+                </td>
+            }
+
         </tr>
     }
 
 </table>
+<br />
+<p>
+    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Aviso", new {active=ViewBag.active})" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>
+</p>

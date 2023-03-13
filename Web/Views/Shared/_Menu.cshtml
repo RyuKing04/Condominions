@@ -11,10 +11,10 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Avisos</a>
                     <div class="dropdown-menu">
                         @Html.ActionLink("Ver Avisos", "Index", "Aviso", new { active = true }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Crear un Aviso", "Create", "Aviso", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Crear un Aviso", "Create", "Aviso", new { active = true }, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>
                         @Html.ActionLink("Ver Incidencias", "Index", "Aviso", new { active = false }, new { @class = "dropdown-item"})
-                        @Html.ActionLink("Crear una Incidencia", "Create", "Aviso", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Crear una Incidencia", "Create", "Aviso", new { active = false }, new { @class = "dropdown-item" })
                     </div>
                 </li>
                 <li class="nav-item dropdown">

@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Crear Rubro</h2>
 
 
 @using (Html.BeginForm("Save", "Rubro", FormMethod.Post))
@@ -12,16 +12,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Rubro</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Descrpicion, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,9 +32,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-                <a style="background:rgb(159, 126, 0)" href="@Url.Action("Index", "Rubro")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
-
+                <input type="submit" value="Crear" class="btn btn-default" style="color:green" />
             </div>
         </div>
     </div>

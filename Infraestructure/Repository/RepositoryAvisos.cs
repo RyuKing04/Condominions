@@ -21,12 +21,12 @@ namespace Infraestructure.Repository
                 IEnumerable<Avisos> lista = null;
                 using (MyContext ctx = new MyContext())
                 {
-                    if (active)
+                    if (active) //Información
                     {
                         ctx.Configuration.LazyLoadingEnabled = false;
                         lista = ctx.Avisos.Where(x=> x.TipoAviso=="Información").ToList<Avisos>();
                     }
-                    else
+                    else //Incidencia
                     {
                         ctx.Configuration.LazyLoadingEnabled = true;
                         lista = ctx.Avisos.Where(x => x.TipoAviso == "Incidencia").ToList<Avisos>();

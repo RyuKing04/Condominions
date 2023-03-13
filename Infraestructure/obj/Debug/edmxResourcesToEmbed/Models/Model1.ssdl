@@ -4,13 +4,13 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="foto" Type="varbinary(max)" />
     <Property Name="Disponibilidad" Type="bit" Nullable="false" />
     <Property Name="HoraInicio" Type="datetime" Nullable="false" />
     <Property Name="HoraFin" Type="datetime" Nullable="false" />
-    <Property Name="TarifaPorHora" Type="int" Nullable="false" />
+    <Property Name="TarifaPorHora" Type="money" Nullable="false" />
   </EntityType>
   <EntityType Name="Asignacion">
     <Key>
@@ -27,7 +27,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
     <Property Name="Estado" Type="bit" />
     <Property Name="idUsuario" Type="int" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -47,14 +47,14 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="IdUsuario" Type="int" Nullable="false" />
     <Property Name="fecha" Type="smalldatetime" Nullable="false" />
     <Property Name="HoraInicio" Type="datetime" Nullable="false" />
     <Property Name="HoraFin" Type="datetime" Nullable="false" />
     <Property Name="Estado" Type="bit" Nullable="false" />
     <Property Name="idArea" Type="int" Nullable="false" />
-    <Property Name="Total" Type="int" Nullable="false" />
+    <Property Name="Total" Type="money" Nullable="false" />
   </EntityType>
   <EntityType Name="Residencia">
     <Key>
@@ -102,7 +102,7 @@
       <PropertyRef Name="id" />
       <PropertyRef Name="FechaVisita" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Apelido" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Telefono" Type="int" Nullable="false" />
