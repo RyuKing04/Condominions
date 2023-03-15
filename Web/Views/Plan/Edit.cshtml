@@ -7,7 +7,7 @@
 <h2>Editar el @Html.DisplayFor(model => model.Descrpcion)</h2>
 
 
-@using (Html.BeginForm("Save", "Plan", FormMethod.Post))
+@using (Html.BeginForm("Save", "Plan", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 

@@ -7,12 +7,61 @@
 <h2>Editar Aviso</h2>
 
 
-@using (Html.BeginForm("Save", "Rubro", FormMethod.Post)) // METER CODIGO PARA ARCHIVOS
+@using (Html.BeginForm("Save", "Aviso", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()<div class="form-horizontal">
     <hr />
     @if (ViewBag.active)
     {
+        <!-- ACTIVE ES TRUE SIRVE PARA INFORMACIÓN-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+            </div>
+            @*@Html.TextArea()*@
+            @* Agregarlo a un text area *@
+        </div>
+
+        if (Model.Documento == null)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="ImageFile" class="form-control" required />
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                            <input type="file"
+                           accept="application/pdf,image/*"
+                           src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(Model.Documento)"
+                           id="DocumentoAviso"
+                           style="height:75px;width:75px" />
+                    @Html.HiddenFor(model => model.Documento)
+                </div>
+            </div>
+        }
+
+
+    }
+    else
+    {
+        <!-- ACTIVE ES FALSE SIRVE PARA INCIDENCIAS-->
+
 
     }
     @*<div class="form-group">
@@ -25,49 +74,27 @@
             </div>
         </div>*@
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.idUsuario, "Cédula del Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("idUsuario", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.idUsuario, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.idUsuario, "Cédula del Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("idUsuario", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.idUsuario, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
+
+    @*<div class="form-group">
             @Html.LabelFor(model => model.TipoAviso, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TipoAviso, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TipoAviso, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Documento, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Documento, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        </div>*@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Guardar" class="btn btn-default" />
         </div>
     </div>
 </div>

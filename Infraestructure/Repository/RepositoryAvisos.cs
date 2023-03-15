@@ -106,7 +106,33 @@ namespace Infraestructure.Repository
 
         public Avisos SaveAvisos(Avisos aviso)
         {
-            throw new NotImplementedException();
+            int retorno = 0;
+            Avisos oAviso = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oAviso = GetAvisosByID((int)aviso.id);
+                IRepositoryAvisos _RepositoryAviso= new RepositoryAvisos();
+
+                if (oAviso == null)
+                {
+                    ctx.Avisos.Add(aviso);
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+                    ctx.Avisos.Add(aviso);
+                    ctx.Entry(aviso).State = EntityState.Modified;
+                    retorno = ctx.SaveChanges();
+                }
+            }
+
+            if (retorno >= 0)
+                oAviso = GetAvisosByID((int)aviso.id);
+
+            return oAviso;
         }
     }
 }
+

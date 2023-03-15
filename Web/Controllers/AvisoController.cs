@@ -40,48 +40,48 @@ namespace Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Save(Avisos aviso)
-        {
-            MemoryStream target = new MemoryStream();
-            IServiceAvisos _ServiceAvisos = new ServiceAvisos();
-            try
-            {
+        //[HttpPost]
+        //public ActionResult Save(Avisos aviso)
+        //{
+        //    MemoryStream target = new MemoryStream();
+        //    IServiceAvisos _ServiceAvisos = new ServiceAvisos();
+        //    try
+        //    {
 
-                if (ModelState.IsValid)
-                {
-                    Avisos oAviso = _ServiceAvisos.SaveAvisos(aviso);
-                }
-                else
-                {
-                    // Valida Errores si Javascript está deshabilitado
-                    //Utils.Util.ValidateErrors(this);
+        //        if (ModelState.IsValid)
+        //        {
+        //            Avisos oAviso = _ServiceAvisos.SaveAvisos(aviso);
+        //        }
+        //        else
+        //        {
+        //            // Valida Errores si Javascript está deshabilitado
+        //            //Utils.Util.ValidateErrors(this);
 
-                    //Cargar la vista crear o actualizar
-                    //Lógica para cargar vista correspondiente
-                    if (aviso.id > 0)
-                    {
-                        return (ActionResult)View("Edit", aviso);
-                    }
-                    else
-                    {
-                        return View("Create", aviso);
-                    }
-                }
+        //            //Cargar la vista crear o actualizar
+        //            //Lógica para cargar vista correspondiente
+        //            if (aviso.id > 0)
+        //            {
+        //                return (ActionResult)View("Edit", aviso);
+        //            }
+        //            else
+        //            {
+        //                return View("Create", aviso);
+        //            }
+        //        }
 
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Aviso";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Salvar el error en un archivo 
+        //        Log.Error(ex, MethodBase.GetCurrentMethod());
+        //        TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+        //        TempData["Redirect"] = "Aviso";
+        //        TempData["Redirect-Action"] = "Index";
+        //        // Redireccion a la captura del Error
+        //        return RedirectToAction("Default", "Error");
+        //    }
+        //}
 
         // GET: Aviso/Edit/5
         public ActionResult Edit(int? id, bool active)
@@ -123,5 +123,58 @@ namespace Web.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Save(Avisos aviso, HttpPostedFileBase ImageFile)
+        {
+            //Gestión de archivos
+            MemoryStream target = new MemoryStream();
+            //Servicio Libro
+            IServiceAvisos _ServiceAviso = new ServiceAvisos();
+            try
+            {
+                //Insertar la imagen
+                if (aviso.Documento == null)
+                {
+                    if (ImageFile != null)
+                    {
+                        ImageFile.InputStream.CopyTo(target);
+                        aviso.Documento = target.ToArray();
+                        ModelState.Remove("Documento");
+                    }
+                }
+
+
+                if (ModelState.IsValid)
+                {
+                    Avisos oAviso = _ServiceAviso.SaveAvisos(aviso);
+                }
+                else
+                {
+                    // Valida Errores si Javascript está deshabilitado
+                    Utils.Utils.ValidateErrors(this);
+                    
+                    if (aviso.id > 0)
+                    {
+                        return (ActionResult)View("Edit", aviso);
+                    }
+                    else
+                    {
+                        return View("Create", aviso);
+                    }
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Aviso";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
     }
 }
