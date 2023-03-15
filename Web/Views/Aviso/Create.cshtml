@@ -55,11 +55,11 @@ else
     }
     else
     {
-        <!--INCIDENCIA-->
+        //INCIDENCIA
         <div class="form-group">
             @Html.LabelFor(model => model.Usuario, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("selectedUsuarios",
+                @Html.DropDownList("idUsuario",
                (SelectList)ViewBag.listaUsuarios,
                htmlAttributes: new { @class = "form-control", multiple = "multiple" })
             </div>

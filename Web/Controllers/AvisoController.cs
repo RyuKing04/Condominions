@@ -49,21 +49,6 @@ namespace Web.Controllers
         // GET: Aviso/Create
         public ActionResult Create(bool active)
         {
-            //Avisos oAviso = new Avisos();
-            //if (active)
-            //{
-            //    //informacion
-            //    oAviso.idUsuario = 1;
-            //    oAviso.TipoAviso = "Información";
-            //    oAviso.Estado = "NA";
-            //}
-            //else
-            //{
-            //    //incidencia
-            //    oAviso.Fecha = DateTime.Now;
-            //    oAviso.TipoAviso = "Incidencia";
-            //    oAviso.Estado = "En proceso";
-            //}
             ViewBag.listaUsuarios = listaUsuarios();
             ViewBag.active = active;
             return View();
@@ -107,6 +92,19 @@ namespace Web.Controllers
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
+        }
+
+        public void CambiarEstado(int id)
+        {
+            IServiceAvisos _ServiceAviso = new ServiceAvisos();
+            Avisos aviso = _ServiceAviso.GetAvisosByID(id);
+            if(aviso.Estado == "En proceso")
+            {
+                aviso.Estado = "Finalizado";
+            }
+
+            _ServiceAviso.SaveAvisos(aviso, false);
+            //REDIRECCIONAR PAGINA A INDEX O HACER VISTA PARCIAL
         }
 
         [HttpPost]

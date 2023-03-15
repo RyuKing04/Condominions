@@ -11,6 +11,11 @@
 {
     @Html.AntiForgeryToken()<div class="form-horizontal">
         <hr />
+        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.TipoAviso)
+        @Html.HiddenFor(model => model.idUsuario)
+        @Html.HiddenFor(model => model.Estado)
+
         @if (ViewBag.active)
         {
             <!-- ACTIVE ES TRUE SIRVE PARA INFORMACIÓN-->
@@ -30,18 +35,13 @@
                 </div>
             </div>
 
-            if (Model.Documento == null)
-            {
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <input type="file" name="ImageFile" class="form-control" required />
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" accept="application/pdf,image/*" name="ImageFile" class="form-control" required />
                 </div>
-            }
-            else
-            {
-                <div class="form-group">
+            </div>
+            @*<div class="form-group">
                     @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         <input type="file"
@@ -51,8 +51,8 @@
                                style="height:75px;width:75px" />
                         @Html.HiddenFor(model => model.Documento)
                     </div>
-                </div>
-            }
+                </div>*@
+        
 
         }
 
