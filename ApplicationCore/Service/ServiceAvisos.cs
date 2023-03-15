@@ -28,10 +28,10 @@ namespace ApplicationCore.Service
             return repository.GetAvisosByIdUsuario(idUsuario);
         }
 
-        public Avisos SaveAvisos(Avisos aviso)
+        public Avisos SaveAvisos(Avisos aviso, bool active)
         {
             IRepositoryAvisos repository = new RepositoryAvisos();
-            return repository.SaveAvisos(aviso);
+            return repository.SaveAvisos(aviso, active);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ApplicationCore.Service
 {
     public interface IRepositoryAvisos
     {
-        Avisos SaveAvisos(Avisos aviso);
+        Avisos SaveAvisos(Avisos aviso, bool active);
         IEnumerable<Avisos> GetAvisos(bool active);
         IEnumerable<Avisos> GetAvisosByIdUsuario(int idUsuario);
         Avisos GetAvisosByID(int id);

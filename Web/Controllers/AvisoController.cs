@@ -14,6 +14,7 @@ namespace Web.Controllers
 {
     public class AvisoController : Controller
     {
+        private bool oActive;
         // GET: Aviso
         public ActionResult Index(bool active)
         {
@@ -49,25 +50,25 @@ namespace Web.Controllers
         // GET: Aviso/Create
         public ActionResult Create(bool active)
         {
-            Avisos oAviso = new Avisos();
-            if (active)
-            {
-                //informacion
-                oAviso.idUsuario = 1;
-                oAviso.TipoAviso = "Información";
-                oAviso.Estado = "NA";
-            }
-            else
-            {
-                //incidencia
-                oAviso.Fecha = DateTime.Now;
-                oAviso.TipoAviso = "Incidencia";
-                oAviso.Estado = "En proceso";
-            }
-
+            //Avisos oAviso = new Avisos();
+            //if (active)
+            //{
+            //    //informacion
+            //    oAviso.idUsuario = 1;
+            //    oAviso.TipoAviso = "Información";
+            //    oAviso.Estado = "NA";
+            //}
+            //else
+            //{
+            //    //incidencia
+            //    oAviso.Fecha = DateTime.Now;
+            //    oAviso.TipoAviso = "Incidencia";
+            //    oAviso.Estado = "En proceso";
+            //}
+            oActive = active;
             ViewBag.listaUsuarios = listaUsuarios();
             ViewBag.active = active;
-            return View(oAviso);
+            return View();
         }
 
         // GET: Aviso/Edit/5
@@ -130,7 +131,7 @@ namespace Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    Avisos oAviso = _ServiceAviso.SaveAvisos(aviso);
+                    Avisos oAviso = _ServiceAviso.SaveAvisos(aviso, oActive);
                 }
                 else
                 {

@@ -104,11 +104,12 @@ namespace Infraestructure.Repository
             }
         }
 
-        public Avisos SaveAvisos(Avisos aviso)
+        public Avisos SaveAvisos(Avisos aviso, bool active)
         {
             int retorno = 0;
             Avisos oAviso = null;
 
+            
             using (MyContext ctx = new MyContext())
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
@@ -117,6 +118,20 @@ namespace Infraestructure.Repository
 
                 if (oAviso == null)
                 {
+                    if (active)
+                    {
+                        //informacion
+                        aviso.idUsuario = 1;
+                        aviso.TipoAviso = "Información";
+                        aviso.Estado = "NA";
+                    }
+                    else
+                    {
+                        //incidencia
+                        aviso.Fecha = DateTime.Now;
+                        aviso.TipoAviso = "Incidencia";
+                        aviso.Estado = "En proceso";
+                    }
                     ctx.Avisos.Add(aviso);
                     retorno = ctx.SaveChanges();
                 }
