@@ -7,7 +7,7 @@
 <h2>Editar Aviso</h2>
 
 
-@using (Html.BeginForm("Save", "Aviso", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Save", "Aviso", new { activo = ViewBag.active }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()<div class="form-horizontal">
         <hr />

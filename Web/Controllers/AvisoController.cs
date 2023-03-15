@@ -14,7 +14,6 @@ namespace Web.Controllers
 {
     public class AvisoController : Controller
     {
-        private bool oActive;
         // GET: Aviso
         public ActionResult Index(bool active)
         {
@@ -65,7 +64,6 @@ namespace Web.Controllers
             //    oAviso.TipoAviso = "Incidencia";
             //    oAviso.Estado = "En proceso";
             //}
-            oActive = active;
             ViewBag.listaUsuarios = listaUsuarios();
             ViewBag.active = active;
             return View();
@@ -112,7 +110,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(Avisos aviso, HttpPostedFileBase ImageFile)
+        public ActionResult Save(Avisos aviso, HttpPostedFileBase ImageFile, bool activo)
         {
             //Gestión de archivos
             MemoryStream target = new MemoryStream();
@@ -129,26 +127,26 @@ namespace Web.Controllers
                     ModelState.Remove("Documento");
                 }
 
-                if (ModelState.IsValid)
-                {
-                    Avisos oAviso = _ServiceAviso.SaveAvisos(aviso, oActive);
-                }
-                else
-                {
-                    // Valida Errores si Javascript está deshabilitado
-                    Utils.Utils.ValidateErrors(this);
+                //if (ModelState.IsValid)
+                //{
+                    Avisos oAviso = _ServiceAviso.SaveAvisos(aviso, activo);
+               // }
+                //else
+                //{
+                    //Valida Errores si Javascript está deshabilitado
+                    //Utils.Utils.ValidateErrors(this);
 
-                    if (aviso.id > 0)
-                    {
-                        return (ActionResult)View("Edit", aviso);
-                    }
-                    else
-                    {
-                        return View("Create", aviso);
-                    }
-                }
+                    //if (aviso.id > 0)
+                    //{
+                    //    return (ActionResult)View("Edit", aviso, active);
+                    //}
+                    //else
+                    //{
+                    //    return View("Create", aviso, new { });
+                    //}
+                //}
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", routeValues: new {active = activo });
             }
             catch (Exception ex)
             {
