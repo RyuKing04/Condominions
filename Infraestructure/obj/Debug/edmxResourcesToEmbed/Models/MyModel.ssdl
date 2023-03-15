@@ -28,11 +28,11 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Estado" Type="bit" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
     <Property Name="idUsuario" Type="int" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="TipoAviso" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
     <Property Name="Documento" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Plan">

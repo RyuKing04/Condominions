@@ -133,17 +133,14 @@ namespace Web.Controllers
             try
             {
                 //Insertar la imagen
-                if (aviso.Documento == null)
-                {
-                    if (ImageFile != null)
+               
+                    if (ImageFile !=null)
                     {
                         ImageFile.InputStream.CopyTo(target);
                         aviso.Documento = target.ToArray();
                         ModelState.Remove("Documento");
                     }
-                }
-
-
+                
                 if (ModelState.IsValid)
                 {
                     Avisos oAviso = _ServiceAviso.SaveAvisos(aviso);
