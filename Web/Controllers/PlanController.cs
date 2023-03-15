@@ -32,7 +32,7 @@ namespace Web.Controllers
         }
 
         // GET: Plan/Details/5
-        public ActionResult Details(int id) //trae los datos de un plan en específico
+        public ActionResult Details(int? id) //trae los datos de un plan en específico
         {
             IServicePlan _ServicePlan = new ServicePlan();
             Plan oPlan = null;
@@ -146,7 +146,7 @@ namespace Web.Controllers
         }
 
         // GET: Plan/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             IServicePlan _ServicePlan = new ServicePlan();
             Plan plan = null;

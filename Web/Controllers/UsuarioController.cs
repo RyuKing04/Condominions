@@ -31,7 +31,7 @@ namespace Web.Controllers
         }
 
         // GET: Usuario/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
             Usuario oUsuario = null;

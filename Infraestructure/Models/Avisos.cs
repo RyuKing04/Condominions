@@ -11,15 +11,12 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    [MetadataType(typeof(AvisosMetadata))]
-
+    
     public partial class Avisos
     {
         public int id { get; set; }
-        public bool Estado { get; set; }
-        public Nullable<int> idUsuario { get; set; }
+        public string Estado { get; set; }
+        public int idUsuario { get; set; }
         public string Descripcion { get; set; }
         public string TipoAviso { get; set; }
         public System.DateTime Fecha { get; set; }

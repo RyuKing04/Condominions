@@ -31,7 +31,7 @@ namespace Web.Controllers
         }
 
         // GET: Asignacion/Details/5
-        public ActionResult Details(int id, bool active)
+        public ActionResult Details(int? id, bool active)
         {
 
             IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();

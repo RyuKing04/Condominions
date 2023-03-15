@@ -28,11 +28,11 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Estado" Type="bit" Nullable="false" />
-    <Property Name="idUsuario" Type="int" />
+    <Property Name="Estado" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="idUsuario" Type="int" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="TipoAviso" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="Documento" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Plan">
@@ -134,7 +134,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Avisos_Usuario">
-    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
     <End Role="Avisos" Type="Self.Avisos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Usuario">

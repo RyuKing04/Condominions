@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Infraestructure.Models.Rubro>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Rubros";
 }
 
 <h2>Listado de Rubro de cobro</h2>
@@ -30,7 +30,7 @@
 
             <td>
                 <a style="background:rgb(159, 126, 0)" href="@Url.Action("Edit", "Rubro", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>
-                <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "Rubro", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
+                @*<a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "Rubro", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>*@
             </td>
         </tr>
 

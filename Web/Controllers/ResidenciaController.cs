@@ -31,7 +31,7 @@ namespace Web.Controllers
         }
 
         // GET: Residencia/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             IServiceResidencia _ServiceResidencia = new ServiceResidencia();
             Residencia oResidencia = null;

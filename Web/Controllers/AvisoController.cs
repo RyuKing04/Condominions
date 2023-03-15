@@ -33,55 +33,42 @@ namespace Web.Controllers
             return View(lista);
         }
 
+        private SelectList listaUsuarios(ICollection<Usuario> usuarios = null)
+        {
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+            IEnumerable<Usuario> lista = _ServiceUsuario.GetUsuario();
+            int[] listaUsuarioSelect = null;
+            if (usuarios != null)
+            {
+                listaUsuarioSelect = usuarios.Select(c => c.Id).ToArray();
+            }
+
+            return new SelectList(lista, "Id", "Nombre", listaUsuarioSelect);
+        }
+
         // GET: Aviso/Create
         public ActionResult Create(bool active)
         {
+            Avisos oAviso = new Avisos();
+            if (active)
+            {
+                //informacion
+                oAviso.idUsuario = 1;
+                oAviso.TipoAviso = "Información";
+                oAviso.Estado = "NA";
+            }
+            else
+            {
+                //incidencia
+                oAviso.Fecha = DateTime.Now;
+                oAviso.TipoAviso = "Incidencia";
+                oAviso.Estado = "En proceso";
+            }
+
+            ViewBag.listaUsuarios = listaUsuarios();
             ViewBag.active = active;
-            return View();
+            return View(oAviso);
         }
-
-        //[HttpPost]
-        //public ActionResult Save(Avisos aviso)
-        //{
-        //    MemoryStream target = new MemoryStream();
-        //    IServiceAvisos _ServiceAvisos = new ServiceAvisos();
-        //    try
-        //    {
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            Avisos oAviso = _ServiceAvisos.SaveAvisos(aviso);
-        //        }
-        //        else
-        //        {
-        //            // Valida Errores si Javascript está deshabilitado
-        //            //Utils.Util.ValidateErrors(this);
-
-        //            //Cargar la vista crear o actualizar
-        //            //Lógica para cargar vista correspondiente
-        //            if (aviso.id > 0)
-        //            {
-        //                return (ActionResult)View("Edit", aviso);
-        //            }
-        //            else
-        //            {
-        //                return View("Create", aviso);
-        //            }
-        //        }
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Salvar el error en un archivo 
-        //        Log.Error(ex, MethodBase.GetCurrentMethod());
-        //        TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-        //        TempData["Redirect"] = "Aviso";
-        //        TempData["Redirect-Action"] = "Index";
-        //        // Redireccion a la captura del Error
-        //        return RedirectToAction("Default", "Error");
-        //    }
-        //}
 
         // GET: Aviso/Edit/5
         public ActionResult Edit(int? id, bool active)
@@ -133,14 +120,14 @@ namespace Web.Controllers
             try
             {
                 //Insertar la imagen
-               
-                    if (ImageFile !=null)
-                    {
-                        ImageFile.InputStream.CopyTo(target);
-                        aviso.Documento = target.ToArray();
-                        ModelState.Remove("Documento");
-                    }
-                
+
+                if (ImageFile != null)
+                {
+                    ImageFile.InputStream.CopyTo(target);
+                    aviso.Documento = target.ToArray();
+                    ModelState.Remove("Documento");
+                }
+
                 if (ModelState.IsValid)
                 {
                     Avisos oAviso = _ServiceAviso.SaveAvisos(aviso);
@@ -149,7 +136,7 @@ namespace Web.Controllers
                 {
                     // Valida Errores si Javascript está deshabilitado
                     Utils.Utils.ValidateErrors(this);
-                    
+
                     if (aviso.id > 0)
                     {
                         return (ActionResult)View("Edit", aviso);

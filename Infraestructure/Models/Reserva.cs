@@ -11,10 +11,7 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    [MetadataType(typeof(ReservaMetadata))]
-
+    
     public partial class Reserva
     {
         public int Id { get; set; }

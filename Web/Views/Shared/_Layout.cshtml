@@ -14,29 +14,29 @@
 </head>
 <body>
     @Html.Partial("_Menu")
-    <br /><hr /><br/>
-                <div class="container body-content">
+    <br /><hr /><br />
+    <div class="container body-content">
 
-                    @RenderBody()
-                    <br />
-                    <hr />
-                    <br />
-                    <footer style="text-align:center; color:darkgreen">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <p>&copy; @DateTime.Now.Year - Mi Proyecto CONDOMINIONS</p>
-                            </div>
-                            <div class="col-lg-6">
-                                <p>Programación en Ambiente Web II - ISW 711</p>
-                            </div>
-                        </div>
-                    </footer>
+        @RenderBody()
+        <br />
+        <hr />
+        <br />
+        <footer style="text-align:center; color:darkgreen">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p>&copy; @DateTime.Now.Year - Mi Proyecto CONDOMINIONS</p>
                 </div>
+                <div class="col-lg-6">
+                    <p>Programación en Ambiente Web II - ISW 711</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
     @*@Scripts.Render("~/bundles/bootstrap")*@
 
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    @RenderSection("scripts", required: false)
 </body>
 </html>

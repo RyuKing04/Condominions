@@ -31,7 +31,7 @@ namespace Web.Controllers
         }
 
         // GET: Reserva/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             IServicePlan _ServicePlan = new ServicePlan();
             Plan oPlan = null;

@@ -161,10 +161,8 @@ namespace Infraestructure.Models
     {
         public int id { get; set; }
         
-        [Required(ErrorMessage = "{0} es un dato requerido")]
         public bool Estado { get; set; }
 
-        [Required(ErrorMessage = "{0} es un dato requerido")]
         public int idUsuario { get; set; }
 
         [Display(Name = "Descripción")]
@@ -181,7 +179,7 @@ namespace Infraestructure.Models
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime Fecha { get; set; }
 
-        [Required(ErrorMessage = "{0} es un dato requerido")]
+        [Display(Name = "Archivo Cargado")]
         public byte[] Documento { get; set; }
 
         public virtual Usuario Usuario { get; set; }

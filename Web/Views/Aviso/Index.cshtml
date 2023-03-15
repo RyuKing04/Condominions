@@ -44,13 +44,17 @@ else
         <th>
             @Html.DisplayNameFor(model => model.Fecha)
         </th>
+        @if (!ViewBag.active)
+        {
+            <!--INCIDENCIA-->
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+        }
         <th>
             @Html.DisplayNameFor(model => model.Documento)
         </th>
-        @if (ViewBag.active)
-        {
-            <td></td>
-        }
+        <td></td>
     </tr>
 
     @foreach (var item in Model)
@@ -63,21 +67,36 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.Fecha)
             </td>
+            @if (!ViewBag.active)
+            {
+                <!--INCIDENCIA-->
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+            }
             <td>
                 @if (item.Documento != null)
                 {
                     <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="width:300px" />
                 }
 
-
             </td>
 
             @if (ViewBag.active)
             {
+                <!--INFORMACION-->
                 <td>
                     <a style="background:rgb(159, 126, 0)" href="@Url.Action("Edit", "Aviso", new { id = item.id , active= ViewBag.active})" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>
                 </td>
             }
+            else
+            {
+                <!--INCIDENCIA-->
+                <td>
+                    <a style="background:rgb(159, 126, 0)" href="" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Cambiar Estado</a>
+                </td>
+            }
+
 
         </tr>
     }
