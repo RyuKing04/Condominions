@@ -161,7 +161,7 @@ namespace Infraestructure.Models
     {
         public int id { get; set; }
         
-        public bool Estado { get; set; }
+        public bool EstadoTipoInfo { get; set; }
 
         public int idUsuario { get; set; }
 

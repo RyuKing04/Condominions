@@ -30,7 +30,7 @@
       <EntityTypeMapping TypeName="CondominionsModel.Avisos">
         <MappingFragment StoreEntitySet="Avisos">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="EstadoTipoInfo" ColumnName="EstadoTipoInfo" />
           <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="TipoAviso" ColumnName="TipoAviso" />

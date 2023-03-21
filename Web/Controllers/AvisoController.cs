@@ -46,10 +46,19 @@ namespace Web.Controllers
             return new SelectList(lista, "Id", "Nombre", listaUsuarioSelect);
         }
 
+        private SelectList listaTiposInfo()
+        {
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+            IEnumerable<string> lista = new string[] { "Noticias", "Avisos", "Archivo Documental" };
+
+            return new SelectList(lista);
+        }
+
         // GET: Aviso/Create
         public ActionResult Create(bool active)
         {
             ViewBag.listaUsuarios = listaUsuarios();
+            ViewBag.listaTipoInfo = listaTiposInfo();
             ViewBag.active = active;
             return View();
         }
@@ -60,7 +69,7 @@ namespace Web.Controllers
             ServiceAvisos _ServiceAvisos = new ServiceAvisos();
             Avisos aviso = null;
             ViewBag.active = active;
-
+            
             try
             {
                 // Si va null
@@ -98,9 +107,9 @@ namespace Web.Controllers
         {
             IServiceAvisos _ServiceAviso = new ServiceAvisos();
             Avisos aviso = _ServiceAviso.GetAvisosByID(id);
-            if(aviso.Estado == "En proceso")
+            if(aviso.EstadoTipoInfo == "En proceso")
             {
-                aviso.Estado = "Finalizado";
+                aviso.EstadoTipoInfo = "Finalizado";
             }
 
             _ServiceAviso.SaveAvisos(aviso, false);

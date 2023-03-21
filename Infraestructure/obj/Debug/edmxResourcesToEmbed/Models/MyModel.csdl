@@ -31,10 +31,10 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EstadoTipoInfo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="idUsuario" Type="Int32" Nullable="false" />
     <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="TipoAviso" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TipoAviso" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Documento" Type="Binary" MaxLength="Max" FixedLength="false" />
     <NavigationProperty Name="Usuario" Relationship="Self.FK_Avisos_Usuario" FromRole="Avisos" ToRole="Usuario" />

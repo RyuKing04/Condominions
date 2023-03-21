@@ -28,10 +28,10 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Estado" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EstadoTipoInfo" Type="nvarchar" MaxLength="25" Nullable="false" />
     <Property Name="idUsuario" Type="int" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="TipoAviso" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TipoAviso" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="Documento" Type="varbinary(max)" />
   </EntityType>

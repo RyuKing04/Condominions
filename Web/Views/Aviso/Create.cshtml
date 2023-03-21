@@ -27,16 +27,14 @@ else
                 @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script>
-            $(function () {
-                $("#Date").datepicker({ dateFormat: "dd / mm / yy" });
-            });
-        </script>
-
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstadoTipoInfo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("EstadoTipoInfo", (SelectList)ViewBag.listaTipoInfo, "Seleccione el tipo de información...", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <br />
         <div class="form-group">
             @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -44,7 +42,7 @@ else
                 @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <br />
         <div class="form-group">
             @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -60,11 +58,11 @@ else
             @Html.LabelFor(model => model.Usuario, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("idUsuario",
-               (SelectList)ViewBag.listaUsuarios,
-               htmlAttributes: new { @class = "form-control", multiple = "multiple" })
+               (SelectList)ViewBag.listaUsuarios, "Seleccione el tipo de su nombre...",
+               htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
-
+        <br />
         <div class="form-group">
             @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -72,7 +70,7 @@ else
                 @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <br />
         <div class="form-group">
             @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -82,7 +80,7 @@ else
 
     }
 
-
+    <br />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Crear" class="btn btn-default" style="color:green" />

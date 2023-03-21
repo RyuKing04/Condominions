@@ -123,14 +123,13 @@ namespace Infraestructure.Repository
                         //informacion
                         aviso.idUsuario = 1;
                         aviso.TipoAviso = "Información";
-                        aviso.Estado = "NA";
                     }
                     else
                     {
                         //incidencia
                         aviso.Fecha = DateTime.Now;
                         aviso.TipoAviso = "Incidencia";
-                        aviso.Estado = "En proceso";
+                        aviso.EstadoTipoInfo = "En proceso";
                     }
                     ctx.Avisos.Add(aviso);
                     retorno = ctx.SaveChanges();
