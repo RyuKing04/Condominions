@@ -250,7 +250,7 @@
     <Content Include="Views\Plan\Edit.cshtml" />
     <Content Include="Views\Aviso\Create.cshtml" />
     <Content Include="Views\Aviso\Edit.cshtml" />
-    <Content Include="Views\Aviso\_IndexEstado.cshtml" />
+    <Content Include="Views\Aviso\IndexUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

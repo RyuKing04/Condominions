@@ -16,7 +16,7 @@ else
 @using (Html.BeginForm("Save", "Aviso", new {activo= ViewBag.active},FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken() <div class="form-horizontal">
-    <hr />
+
     @if (ViewBag.active)
     {
         <!--INFORMACION-->

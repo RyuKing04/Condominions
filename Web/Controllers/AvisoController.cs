@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Web.Utils;
 
 namespace Web.Controllers
@@ -15,7 +16,26 @@ namespace Web.Controllers
     public class AvisoController : Controller
     {
         // GET: Aviso
+        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
         public ActionResult Index(bool active)
+        {
+            IEnumerable<Avisos> lista = null;
+            try
+            {
+                ViewBag.active = active;
+                IServiceAvisos _ServiceAvisos = new ServiceAvisos();
+                lista = _ServiceAvisos.GetAvisos(active);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos!" + ex.Message;
+                return RedirectToAction("Default", "Error");
+            }
+            return View(lista);
+        }
+
+        public ActionResult IndexUsuario(bool active)
         {
             IEnumerable<Avisos> lista = null;
             try
@@ -49,7 +69,7 @@ namespace Web.Controllers
         private SelectList listaTiposInfo()
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
-            IEnumerable<string> lista = new string[] { "Noticias", "Avisos", "Archivo Documental" };
+            IEnumerable<string> lista = new string[] { "Noticias", "Avisos", "Archivos Documentales" };
 
             return new SelectList(lista);
         }
@@ -113,7 +133,6 @@ namespace Web.Controllers
             }
 
             _ServiceAviso.SaveAvisos(aviso, false);
-            //REDIRECCIONAR PAGINA A INDEX O HACER VISTA PARCIAL
         }
 
         [HttpPost]
