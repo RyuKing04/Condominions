@@ -16,6 +16,12 @@ namespace ApplicationCore.Service
             return repository.GetAvisos(active);
         }
 
+        public IEnumerable<Avisos> GetAvisosUsuario()
+        {
+            IRepositoryAvisos repository = new RepositoryAvisos();
+            return repository.GetAvisosUsuario();
+        }
+
         public Avisos GetAvisosByID(int id)
         {
             IRepositoryAvisos repository = new RepositoryAvisos();

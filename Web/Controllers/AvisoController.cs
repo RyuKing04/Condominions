@@ -35,14 +35,13 @@ namespace Web.Controllers
             return View(lista);
         }
 
-        public ActionResult IndexUsuario(bool active)
+        public ActionResult IndexUsuario()
         {
             IEnumerable<Avisos> lista = null;
             try
             {
-                ViewBag.active = active;
                 IServiceAvisos _ServiceAvisos = new ServiceAvisos();
-                lista = _ServiceAvisos.GetAvisos(active);
+                lista = _ServiceAvisos.GetAvisosUsuario();
             }
             catch (Exception ex)
             {

@@ -16,7 +16,7 @@ namespace Web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "AreaComun", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Aviso", action = "IndexUsuario", id = UrlParameter.Optional }
             );
         }
     }

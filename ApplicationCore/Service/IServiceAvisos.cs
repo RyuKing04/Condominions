@@ -12,6 +12,7 @@ namespace ApplicationCore.Service
     {
         Avisos SaveAvisos(Avisos aviso, bool active);
         IEnumerable<Avisos> GetAvisos(bool active);
+        IEnumerable<Avisos> GetAvisosUsuario();
         IEnumerable<Avisos> GetAvisosByIdUsuario(int idUsuario);
         Avisos GetAvisosByID(int id);
     }

@@ -6,69 +6,69 @@
 
 <h2 style="text-align:center">Información del Condominio</h2>
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
+
+<div class="row">
+    <div class="card-group">
+
         @foreach (var item in Model)
         {
-            if (@Html.DisplayFor(modelItem => item.EstadoTipoInfo).Equals("Noticias"))
-            { 
-                <div class="carousel-item active">
-                    @if (item.Documento != null)
+            <div class="col col-3">
+                <div class="card" style="height: 350px; text-align:center">
+
+                    @if (item.EstadoTipoInfo.Equals("Noticias"))
                     {
-                        <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="d-block w-100" style="width:300px" />
+
+                        if (item.Documento != null)
+                        {
+
+                            <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="width:250px; margin: 0 auto" />
+
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Fecha)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                        </div>
+
+
                     }
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>@Html.DisplayFor(modelItem => item.Descripcion)</h5>
-                        <p>@Html.DisplayFor(modelItem => item.Fecha)</p>
-                    </div>
+                    else if (item.EstadoTipoInfo.Equals("Avisos"))
+                    {
+                        if (item.Documento != null)
+                        {
+
+                            <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="width: 250px; margin: 0 auto" />
+
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Fecha)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                        </div>
+                    }
+                    else if (item.EstadoTipoInfo.Equals("Archivos Documentales"))
+                    {
+                        if (item.Documento != null)
+                        {
+
+                            <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="width: 250px; margin: 0 auto" />
+
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Fecha)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                        </div>
+
+                    }
                 </div>
-            }
+            </div>
         }
     </div>
+
 </div>
 
-<br/><br />
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        @foreach (var item in Model)
-        {
-            if (@Html.DisplayFor(modelItem => item.EstadoTipoInfo).Equals("Avisos"))
-            {
-                <div class="carousel-item active">
-                    @if (item.Documento != null)
-                    {
-                        <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="d-block w-100" style="width:300px" />
-                    }
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>@Html.DisplayFor(modelItem => item.Descripcion)</h5>
-                        <p>@Html.DisplayFor(modelItem => item.Fecha)</p>
-                    </div>
-                </div>
-            }
-        }
-    </div>
-</div>
 
-<br /><br />
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        @foreach (var item in Model)
-        {
-            if (@Html.DisplayFor(modelItem => item.EstadoTipoInfo).Equals("Archivos Documentales"))
-            {
-                <div class="carousel-item active">
-                    @if (item.Documento != null)
-                    {
-                        <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="d-block w-100" style="width:300px" />
-                    }
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>@Html.DisplayFor(modelItem => item.Descripcion)</h5>
-                        <p>@Html.DisplayFor(modelItem => item.Fecha)</p>
-                    </div>
-                </div>
-            }
-        }
-    </div>
-</div>
+
