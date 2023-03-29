@@ -16,7 +16,7 @@ namespace ApplicationCore.Service
             return repository.GetUsuario();
         }
 
-        public Usuario GetUsuario(string email, string password)
+        public bool GetUsuario(string email, string password)
         {
             IRepositoryUsuario repository = new RepositoryUsuario();
             return repository.GetUsuario(email, password);

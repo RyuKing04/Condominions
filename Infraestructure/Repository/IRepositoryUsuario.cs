@@ -12,6 +12,6 @@ namespace ApplicationCore.Service
         IEnumerable<Usuario> GetUsuario();
         Usuario GetUsuarioByID(int id);
         Usuario Save(Usuario usuario);
-        Usuario GetUsuario(string email, string password);
+        bool GetUsuario(string email, string password);
     }
 }
