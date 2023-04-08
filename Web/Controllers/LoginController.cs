@@ -12,7 +12,12 @@ namespace Web.Controllers
 {
     public class LoginController : Controller
     {
-        [HttpPost]
+        public ActionResult Login()
+        { 
+            return View();
+        }
+
+            [HttpPost]
         public ActionResult Login(Usuario usuario)
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
@@ -24,7 +29,7 @@ namespace Web.Controllers
                 //Verificar las credenciales
                 if (ModelState.IsValid)
                 {
-                    if (_ServiceUsuario.GetUsuario(usuario.Email, usuario.Contrasenna))
+                    if (_ServiceUsuario.GetUsuario(usuario.Email, usuario.Contrasenna1))
                     {
                         Session["User"] = _ServiceUsuario.GetUsuarioByID(usuario.Id);
                         Log.Info($"Inicio sesion: {usuario.Email}");

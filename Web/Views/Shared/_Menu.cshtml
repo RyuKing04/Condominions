@@ -50,13 +50,12 @@
                        href="#" role="button" aria-haspopup="true"
                        aria-expanded="false"><i class="fa-solid fa-user"></i> Iniciar Sesión</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="@Url.Action("Index","Login")">
-                            <i class="fa-solid fa-user-plus"></i> Login
-                        </a>
-                        <a class="dropdown-item"
-                           href="@Url.Action("Logout","Login")">
-                            <i class="fa-solid fa-user-minus"></i> Logout
-                        </a>
+                        <div style="text-align:center">
+                            <i class="fa-solid fa-user-plus"></i> @Html.ActionLink(" Iniciar Sesión", "Login", "Login", null, new { @class = "dropdown-item" })
+                            <i class="fa-solid fa-user-minus"></i> @Html.ActionLink(" Cerrar Sesión", "Logout", "Login", null, new { @class = "dropdown-item" })
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Información de la Cuenta", "Details", "Usuario", null, new { @class = "dropdown-item" })
                     </div>
                 </li>
             </ul>

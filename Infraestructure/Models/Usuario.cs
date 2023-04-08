@@ -28,8 +28,8 @@ namespace Infraestructure.Models
         public string Rol { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        //public byte[] Contrasenna { get; set; }
-        public string Contrasenna { get; set; }
+        public byte[] Contrasenna { get; set; }
+        public string Contrasenna1 { get; set; }
         public bool Estado { get; set; }
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
         public string Email { get; set; }
