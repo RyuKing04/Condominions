@@ -12,7 +12,7 @@ namespace Web.Controllers
 {
     public class LoginController : Controller
     {
-        public ActionResult Login()
+        public ActionResult Index()
         { 
             return View();
         }
@@ -21,18 +21,22 @@ namespace Web.Controllers
         public ActionResult Login(Usuario usuario)
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+
             try
             {
                 ModelState.Remove("Nombre");
                 ModelState.Remove("Apellidos");
                 ModelState.Remove("IdRol");
                 //Verificar las credenciales
+
                 if (ModelState.IsValid)
                 {
                     if (_ServiceUsuario.GetUsuario(usuario.Email, usuario.Contrasenna1))
                     {
                         Session["User"] = _ServiceUsuario.GetUsuarioByID(usuario.Id);
+                        
                         Log.Info($"Inicio sesion: {usuario.Email}");
+
                         TempData["mensaje"] = Util.SweetAlertHelper.Mensaje("Login",
                             "Usuario autenticado", Util.SweetAlertMessageType.success
                             );
@@ -57,6 +61,7 @@ namespace Web.Controllers
             }
             return View("Index");
         }
+
         public ActionResult UnAuthorized()
         {
             ViewBag.Message = "No autorizado";
@@ -67,6 +72,7 @@ namespace Web.Controllers
             }
             return View();
         }
+
         public ActionResult Logout()
         {
             try

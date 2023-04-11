@@ -1,0 +1,72 @@
+﻿@model Infraestructure.Models.Usuario
+
+@{
+    ViewBag.Title = "Login";
+}
+
+
+<section class="vh-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 text-black">
+                <br /><br />
+
+                <div class="px-5 ms-xl-4">
+                    <img src="~/Content/LOGO.png" height="120" />
+                </div>
+
+                <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+
+                    <form style="width: 23rem;">
+
+                        <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicio de Sesión</h3>
+
+
+
+                        @using (Html.BeginForm("Login", "Login"))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.Contrasenna1, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(model => model.Contrasenna1, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Contrasenna1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="pt-1 mb-4">
+                                <input type="submit" value="Iniciar Sesión" style=" background: rgb(159, 126, 0)" class="btn btn-primary" />
+                            </div>
+
+                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">¿Olvidó su contraseña?</a></p>
+                        }
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-6 px-0 d-none d-sm-block">
+                <img src="https://images.adsttc.com/media/images/54ee/ac81/e58e/ce7e/1000/0066/large_jpg/PORTADA_E04.jpg?1424927863"
+                     alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
