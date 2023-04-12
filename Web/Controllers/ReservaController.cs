@@ -2,6 +2,7 @@
 using Infraestructure.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -15,11 +16,11 @@ namespace Web.Controllers
         // GET: Reserva
         public ActionResult Index()
         {
-            IEnumerable<Plan> lista = null;
+            IEnumerable<Reserva> lista = null;
             try
             {
-                IServicePlan _ServicePlan = new ServicePlan();
-                lista = _ServicePlan.GetPlan();
+                IServiceReserva _ServiceReserva = new ServiceReserva();
+                lista = _ServiceReserva.GetReserva();
             }
             catch (Exception ex)
             {
@@ -33,16 +34,16 @@ namespace Web.Controllers
         // GET: Reserva/Details/5
         public ActionResult Details(int? id)
         {
-            IServicePlan _ServicePlan = new ServicePlan();
-            Plan oPlan = null;
+            IServiceReserva _ServiceReserva = new ServiceReserva();
+            Reserva oReserva = null;
             try
             {
                 if (id == null)
                 {
                     return RedirectToAction("Index");
                 }
-                oPlan = _ServicePlan.GetPlanByID(Convert.ToInt32(id));
-                if (oPlan == null)
+                oReserva = _ServiceReserva.GetReservaByID(Convert.ToInt32(id));
+                if (oReserva == null)
                 {
                     TempData["Message"] = "No existe el plan solicitado";
                     //Controlador
@@ -51,7 +52,7 @@ namespace Web.Controllers
                     TempData["Redirect-Action"] = "Index";
                     return RedirectToAction("Default", "Error");
                 }
-                return View(oPlan);
+                return View(oReserva);
 
             }
             catch (Exception ex)
@@ -66,10 +67,83 @@ namespace Web.Controllers
             }
         }
 
+        private SelectList listaUsuarios(ICollection<Usuario> usuarios = null)
+        {
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+            IEnumerable<Usuario> lista = _ServiceUsuario.GetUsuario();
+            int[] listaUsuarioSelect = null;
+            if (usuarios != null)
+            {
+                listaUsuarioSelect = usuarios.Select(c => c.Id).ToArray();
+            }
+
+            return new SelectList(lista, "Id", "Nombre", listaUsuarioSelect);
+        }
+
+        private SelectList listaAreas(ICollection<AreaComun> areas = null)
+        {
+            IServiceAreaComun _ServiceAreaComun = new ServiceAreaComun();
+            IEnumerable<AreaComun> lista = _ServiceAreaComun.GetAreaComun();
+            int[] listaUsuarioSelect = null;
+            if (areas != null)
+            {
+                listaUsuarioSelect = areas.Select(c => c.id).ToArray();
+            }
+
+            return new SelectList(lista, "Id", "Descripcion", listaUsuarioSelect);
+        }
+
         // GET: Reserva/Create
         public ActionResult Create()
         {
+            ViewBag.listaUsuarios = listaUsuarios();
+            ViewBag.listaAreas = listaAreas();
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Save(Reserva reserva)
+        {
+            //Gestión de archivos
+            ModelState.Remove("Total");
+            reserva.Estado = false;
+
+            //Servicio Libro
+            IServiceReserva _ServiceReserva = new ServiceReserva();
+            try
+            {
+                //Insertar la imagen
+
+                if (ModelState.IsValid)
+                {
+                    Reserva oReserva = _ServiceReserva.Save(reserva);
+                }
+                else
+                {
+                    // Valida Errores si Javascript está deshabilitado
+                    Utils.Utils.ValidateErrors(this);
+
+                    if (reserva.Id > 0)
+                    {
+                    }
+                    else
+                    {
+                        return View("Create");
+                    }
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Aviso";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // POST: Reserva/Create

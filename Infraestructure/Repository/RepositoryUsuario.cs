@@ -117,7 +117,8 @@ namespace Infraestructure.Repository
             try
             {
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = "localhost.database.windows.net";
+                //builder.DataSource = "localhost.database.windows.net";
+                builder.DataSource = "(local)";
                 builder.UserID = "sa";
                 builder.Password = "123456";
                 builder.InitialCatalog = "Condominions";

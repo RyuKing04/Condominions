@@ -58,7 +58,7 @@ else
             @Html.LabelFor(model => model.Usuario, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("idUsuario",
-               (SelectList)ViewBag.listaUsuarios, "Seleccione el tipo de su nombre...",
+               (SelectList)ViewBag.listaUsuarios, "Seleccione su nombre...",
                htmlAttributes: new { @class = "form-control" })
             </div>
         </div>

@@ -22,7 +22,7 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    lista = ctx.Reserva.ToList<Reserva>();
+                    lista = ctx.Reserva.Include(x=> x.AreaComun).Include(x => x.Usuario).ToList<Reserva>();
                 }
                 return lista;
             }
@@ -98,7 +98,38 @@ namespace Infraestructure.Repository
 
         public Reserva Save(Reserva reserva)
         {
-            throw new NotImplementedException();
+            int retorno = 0;
+            Reserva oReserva = null;
+
+            IRepositoryAreaComun _RepositoryArea = new RepositoryAreaComun();
+
+            int tarifaHora = _RepositoryArea.GetAreaComunByID(reserva.idArea).TarifaPorHora;
+
+            DateTime fecha1 = Convert.ToDateTime(reserva.HoraInicio);
+            DateTime fecha2 = Convert.ToDateTime(reserva.HoraFin);
+            int total = ((int)fecha2.Subtract(fecha1).TotalHours)*tarifaHora;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oReserva = GetReservaByID((int)reserva.Id);
+                IRepositoryReserva _RepositoryReserva = new RepositoryReserva();
+
+                if (oReserva == null)
+                {
+                    reserva.Total = total;
+                   
+                    ctx.Reserva.Add(reserva);
+                    
+                    retorno = ctx.SaveChanges();
+                    
+                }
+            }
+
+            if (retorno >= 0)
+                oReserva = GetReservaByID((int)reserva.Id);
+
+            return oReserva;
         }
     }
 }

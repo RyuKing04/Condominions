@@ -104,7 +104,7 @@ namespace Infraestructure.Models
         [Display(Name = "Descripción")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string Descripcion { get; set; }
-
+        [Display(Name = "Foto")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public byte[] foto { get; set; }
 
@@ -190,20 +190,20 @@ namespace Infraestructure.Models
         public int Id { get; set; }
         public int IdUsuario { get; set; }
 
-        [Display(Name = "Fecha de Publicación")]
+        [Display(Name = "Fecha de la Reserva")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime fecha { get; set; }
 
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:Thh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}")]
         [Display(Name = "Hora de Inicio")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime HoraInicio { get; set; }
 
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:Thh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}")]
         [Display(Name = "Hora Final")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime HoraFin { get; set; }

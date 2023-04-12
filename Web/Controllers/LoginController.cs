@@ -17,16 +17,20 @@ namespace Web.Controllers
             return View();
         }
 
-            [HttpPost]
+        [HttpPost]
         public ActionResult Login(Usuario usuario)
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
 
             try
             {
+                ModelState.Remove("Id");
                 ModelState.Remove("Nombre");
-                ModelState.Remove("Apellidos");
-                ModelState.Remove("IdRol");
+                ModelState.Remove("Apellido");
+                ModelState.Remove("Rol");
+                ModelState.Remove("FechaNacimiento");
+                ModelState.Remove("Estado");
+                ModelState.Remove("Contrasenna");
                 //Verificar las credenciales
 
                 if (ModelState.IsValid)
