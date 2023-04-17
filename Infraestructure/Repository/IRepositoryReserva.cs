@@ -9,7 +9,7 @@ namespace ApplicationCore.Service
 {
     public interface IRepositoryReserva
     {
-        IEnumerable<Reserva> GetReserva();
+        IEnumerable<Reserva> GetReserva(bool falso);
         IEnumerable<Reserva> GetReservaByUsuario(int idUsuario);
         Reserva GetReservaByID(int id);
         Reserva Save(Reserva reserva);

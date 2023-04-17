@@ -13,18 +13,18 @@ namespace Infraestructure.Repository
 {
     public class RepositoryReserva : IRepositoryReserva
     {
-        public IEnumerable<Reserva> GetReserva()
+        public IEnumerable<Reserva> GetReserva(bool falso)
         {
             try
             {
-
                 IEnumerable<Reserva> lista = null;
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    lista = ctx.Reserva.Include(x=> x.AreaComun).Include(x => x.Usuario).ToList<Reserva>();
+                    lista = ctx.Reserva.Include(x => x.AreaComun).Include(x => x.Usuario).Where(x => x.Estado == falso).ToList<Reserva>();
                 }
-                return lista;
+                return lista; //true : HISTORIAL        false : NO ACEPTADAS
+
             }
 
             catch (DbUpdateException dbEx)
@@ -107,7 +107,7 @@ namespace Infraestructure.Repository
 
             DateTime fecha1 = Convert.ToDateTime(reserva.HoraInicio);
             DateTime fecha2 = Convert.ToDateTime(reserva.HoraFin);
-            int total = ((int)fecha2.Subtract(fecha1).TotalHours)*tarifaHora;
+            int total = ((int)fecha2.Subtract(fecha1).TotalHours) * tarifaHora;
 
             using (MyContext ctx = new MyContext())
             {
@@ -118,11 +118,17 @@ namespace Infraestructure.Repository
                 if (oReserva == null)
                 {
                     reserva.Total = total;
-                   
+
                     ctx.Reserva.Add(reserva);
-                    
+
                     retorno = ctx.SaveChanges();
-                    
+
+                }
+                else
+                {
+                    ctx.Reserva.Add(reserva);
+                    ctx.Entry(reserva).State = EntityState.Modified;
+                    retorno = ctx.SaveChanges();
                 }
             }
 

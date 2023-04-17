@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Service;
 using Infraestructure.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,7 +21,34 @@ namespace Web.Controllers
             try
             {
                 IServiceReserva _ServiceReserva = new ServiceReserva();
-                lista = _ServiceReserva.GetReserva();
+                lista = _ServiceReserva.GetReserva(true);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos!" + ex.Message;
+                return RedirectToAction("Default", "Error");
+            }
+            return View(lista);
+        }
+
+        public void CambiarEstado(int id)
+        {
+            IServiceReserva _ServiceReserva = new ServiceReserva();
+            Reserva oReserva = _ServiceReserva.GetReservaByID(id);
+                oReserva.Estado = true;
+            
+            _ServiceReserva.Save(oReserva);
+           
+        }
+
+        public ActionResult IndexAdmin()
+        {
+            IEnumerable<Reserva> lista = null;
+            try
+            {
+                IServiceReserva _ServiceReserva = new ServiceReserva();
+                lista = _ServiceReserva.GetReserva(false);
             }
             catch (Exception ex)
             {

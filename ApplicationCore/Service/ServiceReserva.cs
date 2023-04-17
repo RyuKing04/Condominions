@@ -10,10 +10,10 @@ namespace ApplicationCore.Service
 {
     public class ServiceReserva : IServiceReserva
     {
-        public IEnumerable<Reserva> GetReserva()
+        public IEnumerable<Reserva> GetReserva(bool falso)
         {
             IRepositoryReserva repository = new RepositoryReserva();
-            return repository.GetReserva();
+            return repository.GetReserva(falso);
         }
 
         public Reserva GetReservaByID(int id)

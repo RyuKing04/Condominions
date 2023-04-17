@@ -268,6 +268,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Reserva\Index.cshtml" />
     <Content Include="Views\Reserva\Create.cshtml" />
+    <Content Include="Views\Reserva\IndexAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Infraestructure.Models.Reserva>
+
+@{
+    ViewBag.Title = "IndexAdmin";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha)
+        </th>
+        <th>
+            Horario
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+
+
+        <th> @Html.DisplayNameFor(model => model.AreaComun.foto)</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nombre) @Html.DisplayFor(modelItem => item.Usuario.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraInicio) a @Html.DisplayFor(modelItem => item.HoraFin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.AreaComun.foto)"
+                     alt="@Html.DisplayFor(modelItem => item.AreaComun.Descripcion)" class="img-thumbnail" style="height:150px" />
+            </td>
+            <td>
+                <a style="background:rgb(159, 126, 0)" onclick="detalle(@item.Id)" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Cambiar Estado</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+<script type="text/javascript">
+    function detalle(id) {
+        $.ajax({
+            method: 'POST',
+            url: '/Reserva/CambiarEstado',
+            data: { 'id': id },
+            success: function (response) {
+                $('.modal-body').html('');
+                $('.modal-body').html(response);
+                $('#myModal').modal('show');
+            }, error: function (xhr, status, error) {
+                console.log('Error' + error + ',No Error' + xhr.status);
+            }
+        })
+    }
+</script>
