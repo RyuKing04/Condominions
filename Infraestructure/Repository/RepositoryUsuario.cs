@@ -125,7 +125,7 @@ namespace Infraestructure.Repository
 
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
-                    String sql = "SELECT id,email,dbo.DESENCRIPTA_CONTRASENA(contrasenna) as contrasena FROM Usuario";
+                    String sql = "SELECT id,email,dbo.DESENCRIPTA_CONTRASENA(contrasenna) as contrasena FROM Usuario where email = '" + email + "'";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {

@@ -24,7 +24,7 @@ namespace Web.Controllers
 
             try
             {
-                ModelState.Remove("Id");
+                //ModelState.Remove("Id");
                 ModelState.Remove("Nombre");
                 ModelState.Remove("Apellido");
                 ModelState.Remove("Rol");
@@ -37,14 +37,15 @@ namespace Web.Controllers
                 {
                     if (_ServiceUsuario.GetUsuario(usuario.Email, usuario.Contrasenna1))
                     {
-                        Session["User"] = _ServiceUsuario.GetUsuarioByID(usuario.Id);
+
+                        Session["User"] = _ServiceUsuario.GetUsuarioByID(usuario.Id); //REVISAR COMO OBTENER ESE ID
                         
                         Log.Info($"Inicio sesion: {usuario.Email}");
 
                         TempData["mensaje"] = Util.SweetAlertHelper.Mensaje("Login",
                             "Usuario autenticado", Util.SweetAlertMessageType.success
                             );
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("IndexUsuario", "Aviso");
                     }
                     else
                     {

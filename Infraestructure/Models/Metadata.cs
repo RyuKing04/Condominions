@@ -56,6 +56,10 @@ namespace Infraestructure.Models
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public byte[] Contrasenna { get; set; }
 
+        [Display(Name = "Contraseña")]
+        [Required(ErrorMessage = "{0} es un dato requerido")]
+        public string Contrasenna1 { get; set; }
+
         [Display(Name = "Cantidad de Personas")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public bool Estado { get; set; }
