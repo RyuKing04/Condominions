@@ -10,6 +10,12 @@ namespace ApplicationCore.Service
 {
     public class ServiceResidencia : IServiceResidencia
     {
+        public IEnumerable<Residencia> GetResidenciaByFechaAsignacion(DateTime fecha)
+        {
+            IRepositoryResidencia repository = new RepositoryResidencia();
+            return repository.GetResidenciaByFechaAsignacion(fecha);
+        }
+
         IEnumerable<Residencia> IServiceResidencia.GetResidencia()
         {
             IRepositoryResidencia repository = new RepositoryResidencia();

@@ -40,6 +40,49 @@ namespace Infraestructure.Repository
             }
         }
 
+        public IEnumerable<Residencia> GetResidenciaByFechaAsignacion(DateTime fecha)
+        {
+            IEnumerable<Residencia> oResidencia = null;
+
+            DateTime primerDiaDelMes = new DateTime(fecha.Year, fecha.Month, 1);
+            DateTime ultimoDiaDelMes = primerDiaDelMes.AddMonths(1).AddDays(-1);
+
+            try
+            {
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    //oResidencia = ctx.Asignacion.Include("Residencia").Where(x => x.IdResidencia == idResidencia && x.Deuda == activo).Include(x => x.Residencia.Usuario).Include("Plan").ToList();
+                    //oResidencia = ctx.Asignacion.Include("Residencia").Where(x => x.FechaPago > primerDiaDelMes).Where(x => x.FechaPago < ultimoDiaDelMes).ToList();
+                    var todasLasResidencias = ctx.Residencia.Include("Usuario").ToList();
+
+                    var asignacionesDelMes = ctx.Asignacion
+                    .Where(a => a.FechaPago >= primerDiaDelMes && a.FechaPago <= ultimoDiaDelMes)
+                    .ToList();
+
+                    var sinAsignacionesDelMes = todasLasResidencias
+                        .Where(r => !asignacionesDelMes.Any(a => a.IdResidencia == r.id))
+                        .ToList();
+
+                    oResidencia = (IEnumerable<Residencia>)sinAsignacionesDelMes;
+                }
+                return oResidencia;
+            }
+
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         public Residencia GetResidenciaByID(int id)
         {
             Residencia residencia = null;

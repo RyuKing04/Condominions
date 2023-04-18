@@ -13,6 +13,6 @@ namespace ApplicationCore.Service
         IEnumerable<Residencia> GetResidenciaByUsuario(int idUsuario);
         Residencia GetResidenciaByID(int id);
         Residencia  Save(Residencia residencia);
-        
+        IEnumerable<Residencia> GetResidenciaByFechaAsignacion(DateTime fecha);
     }
 }

@@ -10,10 +10,18 @@ namespace ApplicationCore.Service
 {
     public class ServiceAsignacion : IServiceAsignacion
     {
-        public IEnumerable<Asignacion> GetAsignacion()
+        public IEnumerable<Asignacion> GetAsignacion(DateTime fecha)
         {
-            IRepositoryAsignacion repository = new RepositoryAsignacion();
-            return repository.GetAsignacion();
+            if (fecha == null)
+            {
+                IRepositoryAsignacion repository = new RepositoryAsignacion();
+                return repository.GetAsignacion();
+            }
+            else
+            {
+                IRepositoryAsignacion repository = new RepositoryAsignacion();
+                return repository.GetAsignacionByMes(fecha);
+            }
         }
 
         public Asignacion GetAsignacionbyId(int id)
@@ -31,7 +39,7 @@ namespace ApplicationCore.Service
         public IEnumerable<Asignacion> GetAsignacionByIdResidencia(int idResidencia, bool activo)
         {
             IRepositoryAsignacion repository = new RepositoryAsignacion();
-            return repository.GetAsignacionByIdResidencia(idResidencia,activo);
+            return repository.GetAsignacionByIdResidencia(idResidencia, activo);
         }
 
         public IEnumerable<Asignacion> GetAsignacionByIdUsuario(int idUsuario)

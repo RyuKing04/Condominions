@@ -13,13 +13,14 @@ namespace Web.Controllers
     public class AsignacionController : Controller
     {
         // GET: Asignacion
-        public ActionResult Index()
+        public ActionResult Index(DateTime fecha )
         {
             IEnumerable<Asignacion> lista = null;
             try
             {
                 IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();
-                lista = _ServiceAsignacion.GetAsignacion();
+                lista = _ServiceAsignacion.GetAsignacion(fecha);
+                
             }
             catch (Exception ex)
             {
@@ -67,26 +68,25 @@ namespace Web.Controllers
             }
         }
 
+        private SelectList listaResidencias(ICollection<Residencia> residencias = null)
+        {
+            IServiceResidencia _ServiceResidencia = new ServiceResidencia();
+            IEnumerable<Residencia> lista = _ServiceResidencia.GetResidenciaByFechaAsignacion(DateTime.Now);
+            
+            int[] listaResidenciaSelect = null;
+            if (residencias != null)
+            {
+                listaResidenciaSelect = residencias.Select(c => c.id).ToArray();
+            }
+            
+            return new SelectList(lista, "id", "NoCondominio", listaResidenciaSelect);
+        }
+
         // GET: Asignacion/Create
         public ActionResult Create()
         {
+            ViewBag.listaResidencias = listaResidencias();
             return View();
-        }
-
-        // POST: Asignacion/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Asignacion/Edit/5
@@ -130,6 +130,46 @@ namespace Web.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Save(Asignacion pAsignacion)
+        {
+            IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Asignacion oAsignacion = _ServiceAsignacion.SaveAsignacion(pAsignacion);
+                }
+                else
+                {
+
+                    //Valida Errores si Javascript está deshabilitado
+                    Utils.Utils.ValidateErrors(this);
+
+                    if (pAsignacion.Id > 0)
+                    {
+                        return (ActionResult)View("Index");
+                    }
+                    else
+                    {
+                        return View("Create");
+                    }
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Aviso";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
             }
         }
     }

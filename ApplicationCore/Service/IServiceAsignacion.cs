@@ -10,7 +10,7 @@ namespace ApplicationCore.Service
     public interface IServiceAsignacion
     {
         Asignacion GetAsignacionbyId(int id);
-        IEnumerable<Asignacion> GetAsignacion();
+        IEnumerable<Asignacion> GetAsignacion(DateTime fecha);
         Asignacion SaveAsignacion(Asignacion asignacion);
         IEnumerable<Asignacion> GetAsignacionByIdResidencia(int idResidencia, bool activo);
         IEnumerable<Asignacion> GetAsignacionByIdUsuario(int idUsuario);

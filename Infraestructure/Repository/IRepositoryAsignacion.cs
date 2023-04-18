@@ -11,6 +11,7 @@ namespace ApplicationCore.Service
     {
         Asignacion GetAsignacionbyId(int id);
         IEnumerable<Asignacion> GetAsignacion();
+        IEnumerable<Asignacion> GetAsignacionByMes(DateTime mes);
         Asignacion SaveAsignacion(Asignacion asignacion);
         IEnumerable<Asignacion> GetAsignacionByIdResidencia(int idResidencia, bool activo);
         IEnumerable<Asignacion> GetAsignacionByIdUsuario(int idUsuario);

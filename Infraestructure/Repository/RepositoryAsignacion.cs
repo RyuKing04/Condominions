@@ -50,6 +50,38 @@ namespace Infraestructure.Repository
             }
         }
 
+        public IEnumerable<Asignacion> GetAsignacionByMes(DateTime mes)
+        {
+            try
+            {
+                IEnumerable<Asignacion> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    lista = ctx.Asignacion
+                      .Include(a => a.Residencia)
+                      .Include(a => a.Residencia.Usuario)
+                      .ToList()
+                      .Where(x => x.FechaPago.Month == mes.Month)
+                      .ToList();
+                }
+                return lista;
+            }
+
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         public Asignacion GetAsignacionbyId(int id)
         {
             Asignacion oAsignacion = null;
@@ -113,7 +145,7 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oAsignacion = ctx.Asignacion.Include("Residencia").Where(x => x.IdResidencia == idResidencia && x.Deuda==activo).Include(x=>x.Residencia.Usuario).Include("Plan").ToList();
+                    oAsignacion = ctx.Asignacion.Include("Residencia").Where(x => x.IdResidencia == idResidencia && x.Deuda == activo).Include(x => x.Residencia.Usuario).Include("Plan").ToList();
                 }
                 return oAsignacion;
             }
@@ -140,7 +172,7 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oAsignacion = ctx.Asignacion.Include(x=>x.Residencia).Include(x => x.Residencia.Usuario).Where(X => X.Residencia.idUsuario == idUsuario).ToList();
+                    oAsignacion = ctx.Asignacion.Include(x => x.Residencia).Include(x => x.Residencia.Usuario).Where(X => X.Residencia.idUsuario == idUsuario).ToList();
                     //Puede funcionar o puede que no verificar
                 }
                 return oAsignacion;
@@ -162,7 +194,31 @@ namespace Infraestructure.Repository
 
         public Asignacion SaveAsignacion(Asignacion asignacion)
         {
-            throw new NotImplementedException();
+            int retorno = 0;
+            Asignacion oAsignacion = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oAsignacion = GetAsignacionbyId((int)asignacion.Id);
+
+                if (oAsignacion == null)
+                {
+                    ctx.Asignacion.Add(asignacion);
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+                    ctx.Asignacion.Add(asignacion);
+                    ctx.Entry(asignacion).State = EntityState.Modified;
+                    retorno = ctx.SaveChanges();
+                }
+            }
+
+            if (retorno >= 0)
+                oAsignacion = GetAsignacionbyId((int)asignacion.Id);
+
+            return oAsignacion;
         }
     }
 }

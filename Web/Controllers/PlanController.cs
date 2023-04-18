@@ -70,7 +70,7 @@ namespace Web.Controllers
         {
             IServiceRubro _ServiceRubro = new ServiceRubro();
             IEnumerable<Rubro> lista = _ServiceRubro.GetRubro();
-            //Seleccionar categorias
+            
             int[] listaRubroSelect = null;
             if (rubros != null)
             {

@@ -143,7 +143,6 @@ namespace Infraestructure.Repository
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
                 oAviso = GetAvisosByID((int)aviso.id);
-                IRepositoryAvisos _RepositoryAviso= new RepositoryAvisos();
 
                 if (oAviso == null)
                 {
