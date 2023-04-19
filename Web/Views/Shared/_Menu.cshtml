@@ -7,13 +7,16 @@
                 <li class="nav-item">
                     @Html.ActionLink("Inicio", "IndexUsuario", "Aviso", null, new { @class = "nav-link" })
                 </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Áreas Comunes", "Index", "AreaComun", null, new { @class = "nav-link" })
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Avisos</a>
                     <div class="dropdown-menu">
                         @Html.ActionLink("Ver Avisos", "Index", "Aviso", new { active = true }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Crear un Aviso", "Create", "Aviso", new { active = true }, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>
-                        @Html.ActionLink("Ver Incidencias", "Index", "Aviso", new { active = false }, new { @class = "dropdown-item"})
+                        @Html.ActionLink("Ver Incidencias", "Index", "Aviso", new { active = false }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Crear una Incidencia", "Create", "Aviso", new { active = false }, new { @class = "dropdown-item" })
                     </div>
                 </li>
@@ -24,7 +27,7 @@
                         @Html.ActionLink("Rubros de Cobro", "Index", "Rubro", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Planes de Cobro", "Index", "Plan", null, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>
-                        @Html.ActionLink("Asignaciones", "Index", "Asignacion", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Asignaciones", "Index", "Asignacion", new { fecha = default(DateTime) }, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>
                         @Html.ActionLink("Residencias", "Index", "Residencia", null, new { @class = "dropdown-item" })
                         @Html.ActionLink("Visitantes", "Index", "Visitante", null, new { @class = "dropdown-item" })

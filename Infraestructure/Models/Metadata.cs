@@ -185,7 +185,6 @@ namespace Infraestructure.Models
         public System.DateTime Fecha { get; set; }
 
         [Display(Name = "Archivo Cargado")]
-        [UIHint("Image")]
         public byte[] Documento { get; set; }
 
         public virtual Usuario Usuario { get; set; }

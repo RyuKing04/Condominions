@@ -12,8 +12,7 @@
     {
         <div class="col-lg-4" style="margin: 0 auto">
             <div class="card">
-                <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.foto)"
-                     alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="height:300px" />
+                @Html.DisplayFor(modelItem => item.foto)
                 <div class="card-body" style="text-align:center">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
                     <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "AreaComun", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>

@@ -1,0 +1,12 @@
+﻿
+
+@model byte[]
+
+@if (Model != null && Model.Length > 0)
+{
+    <img src="@string.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model))" alt="Imagen" style="height:300px; float:right" />
+}
+else
+{
+    <span style="font-style: italic; color:palegreen">[Sin imagen]</span>
+}

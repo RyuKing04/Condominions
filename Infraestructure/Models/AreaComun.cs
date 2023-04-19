@@ -26,6 +26,8 @@ namespace Infraestructure.Models
     
         public int id { get; set; }
         public string Descripcion { get; set; }
+
+       [UIHint("Imagen")]
         public byte[] foto { get; set; }
         public bool Disponibilidad { get; set; }
         public System.DateTime HoraInicio { get; set; }
