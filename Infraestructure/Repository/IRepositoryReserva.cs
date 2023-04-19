@@ -13,5 +13,6 @@ namespace ApplicationCore.Service
         IEnumerable<Reserva> GetReservaByUsuario(int idUsuario);
         Reserva GetReservaByID(int id);
         Reserva Save(Reserva reserva);
+        void Correo(string correo);
     }
 }

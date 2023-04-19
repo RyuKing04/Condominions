@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Net;
-
+using System.Globalization;
 
 namespace ApplicationCore.Service
 {
@@ -16,29 +16,42 @@ namespace ApplicationCore.Service
     {
         public void Correo(string correo )
         {
-            var password = Environment.GetEnvironmentVariable("gmail", EnvironmentVariableTarget.User);
+            
             try
             {
-                var cliente = new SmtpClient("smtp.gmail.com", 587)
-                {
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("caribbeancondominions@gmail.com", password)
-
-                };
+                SmtpClient client = new SmtpClient();
+                client.Host = "smtp.office365.com";
+                client.Port = 587;
+                client.EnableSsl = true;
+                client.Credentials = new System.Net.NetworkCredential("tonysaske@hotmail.com", "Pelusaserrano123");
                 MailMessage message = new MailMessage();
-                message.From = new MailAddress("caribbeancondominions@gmail.com");
+                message.From = new MailAddress("tonysaske@hotmail.com");
                 message.To.Add(correo);
-                message.Subject = "Asunto del correo";
-                message.Body = "Contenido del correo electrónico.";
-                cliente.Send(message);
+                message.Subject = "Reserva Aceptada";
+                message.Body = "Su Reserva ha sido aceptada exit.";
+                client.Send(message);
 
             }
             catch (Exception)
             {
                 throw;
             }
+        }
+        public string ConvertToAscii(string input)
+        {
+            StringBuilder result = new StringBuilder();
+            string[] parts = input.Split('@');
+            if (parts.Length == 2)
+            {
+                result.Append(parts[0]);
+                result.Append('@');
+                result.Append(new IdnMapping().GetAscii(parts[1]));
+            }
+            else
+            {
+                result.Append(input);
+            }
+            return Uri.EscapeUriString(result.ToString());
         }
 
         public IEnumerable<Reserva> GetReserva(bool falso)

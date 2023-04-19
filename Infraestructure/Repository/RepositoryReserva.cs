@@ -95,6 +95,10 @@ namespace Infraestructure.Repository
                 throw;
             }
         }
+        public void Correo(string correo)
+        {
+
+        }
 
         public Reserva Save(Reserva reserva)
         {
