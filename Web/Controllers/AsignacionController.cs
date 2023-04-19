@@ -13,7 +13,7 @@ namespace Web.Controllers
     public class AsignacionController : Controller
     {
         // GET: Asignacion
-        public ActionResult Index(DateTime fecha )
+        public ActionResult Index(DateTime fecha)
         {
             IEnumerable<Asignacion> lista = null;
             try
@@ -82,10 +82,25 @@ namespace Web.Controllers
             return new SelectList(lista, "id", "NoCondominio", listaResidenciaSelect);
         }
 
+        private SelectList listaPlanes(ICollection<Plan> planes = null)
+        {
+            IServicePlan _ServicePlan = new ServicePlan();
+            IEnumerable<Plan> lista = _ServicePlan.GetPlan();
+
+            int[] listaPlanesSelect = null;
+            if (planes != null)
+            {
+                listaPlanesSelect = planes.Select(c => c.Id).ToArray();
+            }
+
+            return new SelectList(lista, "Id", "Descrpcion", listaPlanesSelect);
+        }
+
         // GET: Asignacion/Create
         public ActionResult Create()
         {
             ViewBag.listaResidencias = listaResidencias();
+            ViewBag.listaPlanes = listaPlanes();
             return View();
         }
 
@@ -136,6 +151,11 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Save(Asignacion pAsignacion)
         {
+            ModelState.Remove("Id");
+            ModelState.Remove("EstadoCuenta");
+
+            pAsignacion.Deuda = true;
+
             IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();
             try
             {

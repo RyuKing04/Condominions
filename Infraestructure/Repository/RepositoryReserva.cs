@@ -50,7 +50,7 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oReserva = ctx.Reserva.Find(id);
+                    oReserva = ctx.Reserva.Where(x => x.Id == id).Include(x => x.AreaComun).FirstOrDefault();
                 }
 
                 return oReserva;
@@ -95,7 +95,7 @@ namespace Infraestructure.Repository
                 throw;
             }
         }
-        public void Correo(string correo)
+        public void Correo(string correo, Reserva reserva)
         {
 
         }

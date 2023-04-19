@@ -12,7 +12,7 @@ namespace ApplicationCore.Service
     {
         public IEnumerable<Asignacion> GetAsignacion(DateTime fecha)
         {
-            if (fecha == null)
+            if (fecha < DateTime.Now.AddYears(-10))
             {
                 IRepositoryAsignacion repository = new RepositoryAsignacion();
                 return repository.GetAsignacion();

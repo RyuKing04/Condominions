@@ -14,7 +14,7 @@ namespace ApplicationCore.Service
 {
     public class ServiceReserva : IServiceReserva
     {
-        public void Correo(string correo )
+        public void Correo(string correo , Reserva reserva )
         {
             
             try
@@ -28,7 +28,7 @@ namespace ApplicationCore.Service
                 message.From = new MailAddress("tonysaske@hotmail.com");
                 message.To.Add(correo);
                 message.Subject = "Reserva Aceptada";
-                message.Body = "Su Reserva ha sido aceptada exit.";
+                message.Body = "Su Reserva en " + reserva.AreaComun.Descripcion + " para la fecha " + reserva.fecha +  " ha sido aceptada exitosamente.";
                 client.Send(message);
 
             }
@@ -37,6 +37,7 @@ namespace ApplicationCore.Service
                 throw;
             }
         }
+
         public string ConvertToAscii(string input)
         {
             StringBuilder result = new StringBuilder();

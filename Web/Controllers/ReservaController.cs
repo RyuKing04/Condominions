@@ -39,7 +39,7 @@ namespace Web.Controllers
                 oReserva.Estado = true;
             
             _ServiceReserva.Save(oReserva);
-            _ServiceReserva.Correo(correo);
+            _ServiceReserva.Correo(correo, oReserva);
             //LLAMAR METODO CORREO
             //PONER PROMPT DE CORREO ENVIADO
             //return (ActionResult)View("Index");

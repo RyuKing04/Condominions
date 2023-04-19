@@ -142,8 +142,10 @@ namespace Infraestructure.Models
     {
         public int Id { get; set; }
 
+        [Display(Name = "Número del Condominio")]
         public int IdResidencia { get; set; }
 
+        [Display(Name = "Plan")]
         public int IdPlan { get; set; }
 
         [Display(Name = "Fecha de Pago")]
@@ -151,7 +153,6 @@ namespace Infraestructure.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime FechaPago { get; set; }
-
 
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public bool Deuda { get; set; }
@@ -184,6 +185,7 @@ namespace Infraestructure.Models
         public System.DateTime Fecha { get; set; }
 
         [Display(Name = "Archivo Cargado")]
+        [UIHint("Image")]
         public byte[] Documento { get; set; }
 
         public virtual Usuario Usuario { get; set; }
