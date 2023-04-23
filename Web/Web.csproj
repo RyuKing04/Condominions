@@ -151,10 +151,14 @@
     <Compile Include="Controllers\ResidenciaController.cs" />
     <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Enum\Roles.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AutorizeView.cs" />
+    <Compile Include="Security\CustomAuthenticationFilter.cs" />
+    <Compile Include="Security\CustomAuthorizeAttribute.cs" />
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Utils\SweetAlertHelper.cs" />
     <Compile Include="Utils\Utils.cs" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 using Web.Utils;
 
 namespace Web.Controllers
@@ -13,7 +14,8 @@ namespace Web.Controllers
     public class AsignacionController : Controller
     {
         // GET: Asignacion
-        public ActionResult Index(DateTime fecha)
+        [CustomAuthorize((int)Roles.Administrador)]
+        public ActionResult Index(DateTime fecha) //agregar otro index para usuario para que lo filtre por usuario
         {
             IEnumerable<Asignacion> lista = null;
             try
@@ -96,6 +98,7 @@ namespace Web.Controllers
             return new SelectList(lista, "Id", "Descrpcion", listaPlanesSelect);
         }
 
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: Asignacion/Create
         public ActionResult Create()
         {

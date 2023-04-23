@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 using Web.Utils;
 
 namespace Web.Controllers
@@ -15,6 +16,7 @@ namespace Web.Controllers
     public class ReservaController : Controller
     {
         // GET: Reserva
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
         {
             IEnumerable<Reserva> lista = null;
@@ -46,6 +48,7 @@ namespace Web.Controllers
             return RedirectToAction("Index", "Reserva");
         }
 
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult IndexAdmin()
         {
             IEnumerable<Reserva> lista = null;
@@ -63,6 +66,7 @@ namespace Web.Controllers
             return View(lista);
         }
 
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: Reserva/Details/5
         public ActionResult Details(int? id)
         {
