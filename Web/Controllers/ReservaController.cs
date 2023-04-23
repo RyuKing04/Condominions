@@ -137,7 +137,7 @@ namespace Web.Controllers
         public ActionResult Save(Reserva reserva)
         {
             //Gestión de archivos
-            ModelState.Remove("Total");
+            ModelState.Remove("Total"); 
             reserva.Estado = false;
 
             //Servicio Libro

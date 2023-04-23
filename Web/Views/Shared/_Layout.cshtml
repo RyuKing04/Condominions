@@ -13,7 +13,41 @@
 
 </head>
 <body>
-    @Html.Partial("_Menu")
+    @* Información usuario *@
+    @{
+        int cedula = 0;
+        String email = "Perfil";
+        String rol = "";
+
+        if (Session["User"] != null)
+        {
+            Infraestructure.Models.Usuario usuario = new Infraestructure.Models.Usuario();
+            usuario = (Infraestructure.Models.Usuario)Session["User"];
+            cedula = usuario.Id;
+            email = usuario.Email;
+            rol = usuario.Rol;
+
+        }
+    }
+
+    @if (Session["User"] != null)
+    {
+        if (rol.Equals("Administrador"))
+        {
+            @Html.Partial("_Menu")
+
+        }
+        else
+        {
+            @Html.Partial("_MenuUser");
+
+        }
+    }
+    else
+    {
+        @Html.Partial("_Menu");
+    }
+
     <br /><hr /><br />
     <div class="container body-content">
 
