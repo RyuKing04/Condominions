@@ -32,7 +32,7 @@ namespace Web.Controllers
             return View(lista);
         }
 
-        public /*ActionResult*/ void CambiarEstado(int id, string correo)
+        public ActionResult /*void*/ CambiarEstado(int id, string correo)
         {
             IServiceReserva _ServiceReserva = new ServiceReserva();
             Reserva oReserva = _ServiceReserva.GetReservaByID(id);
@@ -43,6 +43,7 @@ namespace Web.Controllers
             //LLAMAR METODO CORREO
             //PONER PROMPT DE CORREO ENVIADO
             //return (ActionResult)View("Index");
+            return RedirectToAction("Index", "Reserva");
         }
 
         public ActionResult IndexAdmin()

@@ -109,7 +109,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        public bool GetUsuario(string email, string password)
+        public Usuario GetUsuario(string email, string password)
         {
             Usuario oUsuario = null;
             string contra = "";
@@ -145,11 +145,11 @@ namespace Infraestructure.Repository
 
                 if(email.Equals(oUsuario.Email) && password.Equals(contra))
                 {
-                    return true;
+                    return GetUsuarioByID(oUsuario.Id);
                 }
                 else
                 {
-                    return false;
+                    return null;
                 }
             }
             catch (DbUpdateException dbEx)

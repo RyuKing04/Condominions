@@ -35,12 +35,13 @@ namespace Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    if (_ServiceUsuario.GetUsuario(usuario.Email, usuario.Contrasenna1))
+                    Usuario pUsuario = _ServiceUsuario.GetUsuario(usuario.Email, usuario.Contrasenna1);
+                    if (pUsuario != null)
                     {
 
-                        Session["User"] = _ServiceUsuario.GetUsuarioByID(usuario.Id); //REVISAR COMO OBTENER ESE ID
+                        Session["User"] = _ServiceUsuario.GetUsuarioByID(pUsuario.Id); 
                         
-                        Log.Info($"Inicio sesion: {usuario.Email}");
+                        Log.Info($"Inicio sesion: {pUsuario.Email}");
 
                         TempData["mensaje"] = Util.SweetAlertHelper.Mensaje("Login",
                             "Usuario autenticado", Util.SweetAlertMessageType.success
