@@ -12,8 +12,8 @@ namespace Web.Security
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
         //Roles permitidos
-        private readonly int[] allowedroles;
-        public CustomAuthorizeAttribute(params int[] roles)
+        private readonly string allowedroles;
+        public CustomAuthorizeAttribute( string roles)
         {
             //roles Obtiene los roles de usuario autorizados
             //para acceder al controlador o al método de acción.

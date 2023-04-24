@@ -35,10 +35,8 @@ namespace Web.Controllers
         public ActionResult /*void*/ CambiarEstado(int id)
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
-            Usuario oUsuario = _ServiceUsuario.GetUsuarioByID(id);
-            oUsuario.Estado = false;
 
-            _ServiceUsuario.CambiarEstado(oUsuario);
+            _ServiceUsuario.CambiarEstado(id);
             return RedirectToAction("Index", "Usuario");
         }
         // GET: Usuario/Details/5

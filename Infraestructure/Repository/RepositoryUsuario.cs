@@ -72,32 +72,52 @@ namespace Infraestructure.Repository
             }
         }
 
-        public Usuario CambiarEstado(Usuario pUsuario)
+        public Usuario CambiarEstado(int Id)
         {
             int retorno = 0;
             Usuario oUsuario = null;
-
-            using (MyContext ctx = new MyContext())
+            try
             {
-                ctx.Configuration.LazyLoadingEnabled = false;
-                oUsuario = GetUsuarioByID((int)pUsuario.Id);
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "(local)";
+                builder.UserID = "sa";
+                builder.Password = "123456";
+                builder.InitialCatalog = "Condominions";
 
-                if (oUsuario != null)
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
-                    ctx.Usuario.Add(pUsuario);
-                    ctx.Entry(pUsuario).State = EntityState.Modified;
-                    retorno = ctx.SaveChanges();
-                }
-                else
-                {
+                    String sql = "UPDATE Usuario SET Estado = 0 WHERE Id = " + Id;
 
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                retorno = 1;
+                            }
+                        }
+                    }
                 }
+
+                if (retorno >= 0)
+                    oUsuario = GetUsuarioByID(Id);
+
+                return oUsuario;
             }
-
-            if (retorno >= 0)
-                oUsuario = GetUsuarioByID((int)pUsuario.Id);
-
-            return oUsuario;
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
         }
 
 
@@ -168,7 +188,7 @@ namespace Infraestructure.Repository
 
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
-                    String sql = "SELECT id,email,dbo.DESENCRIPTA_CONTRASENA(contrasenna) as contrasena FROM Usuario where email = '" + email + "'";
+                    String sql = "SELECT id,email,dbo.DESENCRIPTA_CONTRASENA(contrasenna) as contrasena FROM Usuario where email = '" + email + "' AND Estado = 1";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {

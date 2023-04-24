@@ -379,6 +379,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Imagen.cshtml" />
     <Content Include="Views\Shared\_MenuUser.cshtml" />
     <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Residencia\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

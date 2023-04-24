@@ -14,7 +14,7 @@ namespace Web.Controllers
     public class AsignacionController : Controller
     {
         // GET: Asignacion
-        [CustomAuthorize((int)Roles.Administrador)]
+        [CustomAuthorize(Roles.Administrador.ToString())]
         public ActionResult Index(DateTime fecha) //agregar otro index para usuario para que lo filtre por usuario
         {
             IEnumerable<Asignacion> lista = null;

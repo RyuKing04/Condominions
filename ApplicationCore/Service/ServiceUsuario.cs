@@ -34,10 +34,10 @@ namespace ApplicationCore.Service
             IRepositoryUsuario repository = new RepositoryUsuario();
             return repository.Save(usuario);
         }
-        public Usuario CambiarEstado(Usuario pUsuario)
+        public Usuario CambiarEstado(int Id)
         {
             IRepositoryUsuario repository = new RepositoryUsuario();
-            return repository.CambiarEstado(pUsuario);
+            return repository.CambiarEstado(Id);
         }
     }
 }

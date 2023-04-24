@@ -2,6 +2,7 @@
 using Infraestructure.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -14,7 +15,7 @@ namespace Web.Controllers
     public class ResidenciaController : Controller
     {
         // GET: Residencia
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
         {
             IEnumerable<Residencia> lista = null;
@@ -32,7 +33,7 @@ namespace Web.Controllers
             return View(lista);
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+       // [CustomAuthorize((int)Roles.Administrador)]
         // GET: Residencia/Details/5
         public ActionResult Details(int? id)
         {
@@ -69,10 +70,11 @@ namespace Web.Controllers
             }
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+       // [CustomAuthorize((int)Roles.Administrador)]
         // GET: Residencia/Create
         public ActionResult Create()
         {
+            ViewBag.listaUsuarios = listaUsuarios();
             return View();
         }
 
@@ -97,8 +99,20 @@ namespace Web.Controllers
         {
             return View();
         }
+        private SelectList listaUsuarios(ICollection<Usuario> usuarios = null)
+        {
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+            IEnumerable<Usuario> lista = _ServiceUsuario.GetUsuario();
+            int[] listaUsuarioSelect = null;
+            if (usuarios != null)
+            {
+                listaUsuarioSelect = usuarios.Select(c => c.Id).ToArray();
+            }
 
+            return new SelectList(lista, "Id", "Nombre", listaUsuarioSelect);
+        }
         // POST: Residencia/Edit/5
+
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -133,6 +147,51 @@ namespace Web.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Save(Residencia residencia)
+        {
+            //Gestión de archivos
+            MemoryStream target = new MemoryStream();
+            //Servicio Libro
+            IServiceResidencia _ServiceResidencia = new ServiceResidencia();
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    Residencia oResidencia = _ServiceResidencia.Save(residencia);
+                }
+                else
+                {
+                    // Valida Errores si Javascript está deshabilitado
+                    //Utils.Util.ValidateErrors(this);
+
+                    //Cargar la vista crear o actualizar
+                    //Lógica para cargar vista correspondiente
+                    if (residencia.id > 0)
+                    {
+                        return (ActionResult)View("Edit", residencia);
+                    }
+                    else
+                    {
+                        return View("Create", residencia);
+                    }
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Rubro";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
             }
         }
     }
