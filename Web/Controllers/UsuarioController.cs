@@ -2,6 +2,7 @@
 using Infraestructure.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -14,7 +15,7 @@ namespace Web.Controllers
     public class UsuarioController : Controller
     {
         // GET: Usuario
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
         {
             IEnumerable<Usuario> lista = null;
@@ -31,7 +32,15 @@ namespace Web.Controllers
             }
             return View(lista);
         }
+        public ActionResult /*void*/ CambiarEstado(int id)
+        {
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+            Usuario oUsuario = _ServiceUsuario.GetUsuarioByID(id);
+            oUsuario.Estado = false;
 
+            _ServiceUsuario.CambiarEstado(oUsuario);
+            return RedirectToAction("Index", "Usuario");
+        }
         // GET: Usuario/Details/5
         public ActionResult Details(int? id)
         {
@@ -67,7 +76,7 @@ namespace Web.Controllers
             }
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+       // [CustomAuthorize((int)Roles.Administrador)]
         // GET: Usuario/Create
         public ActionResult Create()
         {
@@ -81,6 +90,45 @@ namespace Web.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult Save(Usuario pUsuario)
+        {
+            ModelState.Remove("Estado");
+            ModelState.Remove("Rol");
+            ModelState.Remove("Contrasenna");
+
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Usuario oUsuario = _ServiceUsuario.Save(pUsuario);
+                }
+                else
+                {
+                    if (pUsuario.Id > 0)
+                    {
+                    }
+                    else
+                    {
+                        return View("Create", pUsuario);
+                    }
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Index";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
 
     }
 }

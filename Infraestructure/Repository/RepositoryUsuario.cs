@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
@@ -19,14 +20,14 @@ namespace Infraestructure.Repository
     {
         public IEnumerable<Usuario> GetUsuario()
         {
-                try
+            try
             {
                 IEnumerable<Usuario> lista = null;
-                using(MyContext ctx = new MyContext())
+                using (MyContext ctx = new MyContext())
                 {
                     //sacar todos menos el admin
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    lista = ctx.Usuario.Where(l=>l.Rol!="Administrador").ToList<Usuario>();
+                    lista = ctx.Usuario.Where(l => l.Rol != "Administrador").Where(l=>l.Estado == true).ToList<Usuario>();
                 }
                 return lista;
 
@@ -37,7 +38,7 @@ namespace Infraestructure.Repository
                 Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw new Exception(mensaje);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string mensaje = "";
                 Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
@@ -47,13 +48,13 @@ namespace Infraestructure.Repository
 
         public Usuario GetUsuarioByID(int id)
         {
-                Usuario oUsuario= null;
+            Usuario oUsuario = null;
             try
             {
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oUsuario=ctx.Usuario.Include("Residencia").Where(c => c.Id == id).FirstOrDefault();
+                    oUsuario = ctx.Usuario.Include("Residencia").Where(c => c.Id == id).FirstOrDefault();
                 }
                 return oUsuario;
             }
@@ -68,8 +69,37 @@ namespace Infraestructure.Repository
                 string mensaje = "";
                 Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw;
-            }       
+            }
         }
+
+        public Usuario CambiarEstado(Usuario pUsuario)
+        {
+            int retorno = 0;
+            Usuario oUsuario = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oUsuario = GetUsuarioByID((int)pUsuario.Id);
+
+                if (oUsuario != null)
+                {
+                    ctx.Usuario.Add(pUsuario);
+                    ctx.Entry(pUsuario).State = EntityState.Modified;
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+
+                }
+            }
+
+            if (retorno >= 0)
+                oUsuario = GetUsuarioByID((int)pUsuario.Id);
+
+            return oUsuario;
+        }
+
 
         public Usuario Save(Usuario usuario)
         {
@@ -77,22 +107,36 @@ namespace Infraestructure.Repository
             Usuario oUsuario = null;
             try
             {
-                using (MyContext ctx = new MyContext())
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "(local)";
+                builder.UserID = "sa";
+                builder.Password = "123456";
+                builder.InitialCatalog = "Condominions";
+
+
+
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
-                    ctx.Configuration.LazyLoadingEnabled = false;
-                    oUsuario = GetUsuarioByID(usuario.Id);
-                    if (oUsuario == null)
+                    String sql = "INSERT into Usuario(Id,Nombre,Apellido, Rol, Contrasenna, Estado, Email, FechaNacimiento) VALUES("
+                                    + usuario.Id + ",'" + usuario.Nombre + "','" + usuario.Apellido + "', 'Usuario', dbo.ENCRIPTA_CONTRASENA('"
+                                    + usuario.Contrasenna1 + "'), 1, '" + usuario.Email + "','" + usuario.FechaNacimiento + "')";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        ctx.Usuario.Add(usuario);
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                retorno = 1;
+                            }
+                        }
                     }
-                    else
-                    {
-                        ctx.Entry(usuario).State = EntityState.Modified;
-                    }
-                    retorno = ctx.SaveChanges();
                 }
+
                 if (retorno >= 0)
                     oUsuario = GetUsuarioByID(usuario.Id);
+
                 return oUsuario;
             }
             catch (DbUpdateException dbEx)
@@ -117,7 +161,6 @@ namespace Infraestructure.Repository
             try
             {
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                //builder.DataSource = "localhost.database.windows.net";
                 builder.DataSource = "(local)";
                 builder.UserID = "sa";
                 builder.Password = "123456";
@@ -143,7 +186,7 @@ namespace Infraestructure.Repository
                     }
                 }
 
-                if(email.Equals(oUsuario.Email) && password.Equals(contra))
+                if (email.Equals(oUsuario.Email) && password.Equals(contra))
                 {
                     return GetUsuarioByID(oUsuario.Id);
                 }

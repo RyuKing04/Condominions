@@ -138,7 +138,37 @@ namespace Infraestructure.Repository
 
         public Residencia Save(Residencia residencia)
         {
-            throw new NotImplementedException();
-        }
+            int retorno = 0;
+            Residencia oResidencia= null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oResidencia = GetResidenciaByID((int)residencia.id);
+                IRepositoryResidencia _RepositoryResidencia = new RepositoryResidencia();
+
+                if (oResidencia == null)
+                {
+
+                    ctx.Residencia.Add(residencia);
+                    
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+                    
+                    ctx.Residencia.Add(residencia);
+                    ctx.Entry(residencia).State = EntityState.Modified;
+                    retorno = ctx.SaveChanges();
+
+
+                }
+            }
+
+            if (retorno >= 0)
+                oResidencia = GetResidenciaByID((int)residencia.id);
+
+            return oResidencia;
+        }   
     }
 }

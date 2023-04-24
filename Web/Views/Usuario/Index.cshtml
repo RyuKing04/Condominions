@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @*<a style="background:rgb(159, 126, 0)" href="@Url.Action("Editar", "Usuario", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
+                <a style="background:rgb(159, 126, 0)" onclick="detalle(@item.Id)" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Deshabilitar</a>
                 <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "Usuario", new { id = item.Id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
             </td>
         </tr>
@@ -42,5 +42,22 @@
 </table>
 <br />
 <p>
-    @*a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Residencia")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>*@
+    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Usuario")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>
 </p>
+
+<script type="text/javascript">
+    function detalle(id) {
+        $.ajax({
+            method: 'POST',
+            url: '/Usuario/CambiarEstado',
+            data: { 'id': id },
+            success: function (response) {
+                $('.modal-body').html('');
+                $('.modal-body').html(response);
+                $('#myModal').modal('show');
+            }, error: function (xhr, status, error) {
+                console.log('Error' + error + ',No Error' + xhr.status);
+            }
+        })
+    }
+</script>
