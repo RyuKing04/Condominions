@@ -17,7 +17,7 @@ namespace Web.Controllers
     public class AvisoController : Controller
     {
         // GET: Aviso
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index(bool active)
         {
             IEnumerable<Avisos> lista = null;
@@ -74,7 +74,7 @@ namespace Web.Controllers
             return new SelectList(lista);
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Aviso/Create
         public ActionResult Create(bool active)
         {
@@ -84,7 +84,7 @@ namespace Web.Controllers
             return View();
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Aviso/Edit/5
         public ActionResult Edit(int? id, bool active)
         {

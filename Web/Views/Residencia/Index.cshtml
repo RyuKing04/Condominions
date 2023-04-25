@@ -35,7 +35,7 @@
             </td>
             <td>
             <td>
-                @*<a style="background:rgb(159, 126, 0)" href="@Url.Action("Editar", "Residencia", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>*@
+                <a style="background:rgb(159, 126, 0)" href="@Url.Action("Edit", "Residencia", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>
                 <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "Residencia", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
             </td>
         </tr>
@@ -44,5 +44,5 @@
 </table>
 <br />
 <p>
-    @*a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Residencia")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>*@
+    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Residencia")" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>
 </p>

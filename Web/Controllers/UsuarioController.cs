@@ -81,7 +81,7 @@ namespace Web.Controllers
             return View();
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Usuario/Edit/5
         public ActionResult Edit(int id)
         {

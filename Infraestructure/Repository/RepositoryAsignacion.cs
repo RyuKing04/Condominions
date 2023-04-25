@@ -172,12 +172,10 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oAsignacion = ctx.Asignacion.Include(x => x.Residencia).Include(x => x.Residencia.Usuario).Where(X => X.Residencia.idUsuario == idUsuario).ToList();
-                    //Puede funcionar o puede que no verificar
+                    oAsignacion = ctx.Asignacion.Include(x => x.Plan).Include(x => x.Residencia).Include(x => x.Residencia.Usuario).Where(X => X.Residencia.idUsuario == idUsuario).ToList();
                 }
                 return oAsignacion;
             }
-
             catch (DbUpdateException dbEx)
             {
                 string mensaje = "";

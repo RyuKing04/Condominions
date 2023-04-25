@@ -15,7 +15,7 @@ namespace Web.Controllers
     public class RubroController : Controller
     {
         // GET: Rubro
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
         {
             IEnumerable<Rubro> lista = null;
@@ -32,7 +32,7 @@ namespace Web.Controllers
             }
             return View(lista);
         }
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Rubro/Details/5
         public ActionResult Details(int? id)
         {
@@ -92,7 +92,7 @@ namespace Web.Controllers
             }
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Rubro/Edit/5
         public ActionResult Edit(int? id)
         {

@@ -15,7 +15,7 @@ namespace Web.Controllers
     public class PlanController : Controller
     {
         // GET: Plan
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
 
         public ActionResult Index() //trae todos los datos
         {
@@ -34,7 +34,7 @@ namespace Web.Controllers
             return View(lista);
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Plan/Details/5
         public ActionResult Details(int? id) //trae los datos de un plan en específico
         {
@@ -84,7 +84,7 @@ namespace Web.Controllers
             return new MultiSelectList(lista, "Id", "Descrpicion", listaRubroSelect);
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Plan/Create
         [HttpGet]
         public ActionResult Create()
@@ -150,7 +150,7 @@ namespace Web.Controllers
             }
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Plan/Edit/5
         public ActionResult Edit(int? id)
         {

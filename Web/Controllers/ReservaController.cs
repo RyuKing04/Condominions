@@ -16,14 +16,31 @@ namespace Web.Controllers
     public class ReservaController : Controller
     {
         // GET: Reserva
-        [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult Index()
+        //[CustomAuthorize((int)Roles.Administrador)]
+        public ActionResult Index() //PARA QUE LE ADMIN VEA TODOS LOS ACEPTADOS
         {
             IEnumerable<Reserva> lista = null;
             try
             {
                 IServiceReserva _ServiceReserva = new ServiceReserva();
                 lista = _ServiceReserva.GetReserva(true);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos!" + ex.Message;
+                return RedirectToAction("Default", "Error");
+            }
+            return View(lista);
+        }
+
+        public ActionResult IndexUsuario(int id) // PARA QUE EL USUARIO VEA SUS RESERVAS 
+        {
+            IEnumerable<Reserva> lista = null;
+            try
+            {
+                IServiceReserva _ServiceReserva = new ServiceReserva();
+                lista = _ServiceReserva.GetReservaByUsuario(true, id);
             }
             catch (Exception ex)
             {
@@ -48,8 +65,8 @@ namespace Web.Controllers
             return RedirectToAction("Index", "Reserva");
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult IndexAdmin()
+        //[CustomAuthorize((int)Roles.Administrador)]
+        public ActionResult IndexAdmin() // PARA QUE EL ADMIN ACEPTE TODOS LO QUE ESTAN FALSO
         {
             IEnumerable<Reserva> lista = null;
             try
@@ -66,7 +83,7 @@ namespace Web.Controllers
             return View(lista);
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Reserva/Details/5
         public ActionResult Details(int? id)
         {

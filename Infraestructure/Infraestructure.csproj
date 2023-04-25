@@ -108,6 +108,7 @@
     <Compile Include="Repository\IRepositoryAsignacion.cs" />
     <Compile Include="Repository\IRepositoryAvisos.cs" />
     <Compile Include="Repository\IRepositoryPlan.cs" />
+    <Compile Include="Repository\IRepositoryReporte.cs" />
     <Compile Include="Repository\IRepositoryReserva.cs" />
     <Compile Include="Repository\IRepositoryResidencia.cs" />
     <Compile Include="Repository\IRepositoryRubro.cs" />

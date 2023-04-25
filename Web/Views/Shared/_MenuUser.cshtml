@@ -37,9 +37,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pagos y Reservas</a>
                     <div class="dropdown-menu">
-                        @Html.ActionLink("Ver Asignaciones", "IndexUsuario", "Asignacion", new { fecha = default(DateTime) }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Ver Asignaciones", "IndexUsuario", "Asignacion", new { fecha = default(DateTime), id = cedula }, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>
-                        @Html.ActionLink("Ver Reservas", "IndexUsuario", "Reserva", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Ver Reservas", "IndexUsuario", "Reserva", new { id = cedula }, new { @class = "dropdown-item" } )
                         @Html.ActionLink("Reservar", "Create", "Reserva", null, new { @class = "dropdown-item" })
                         <div class="dropdown-divider"></div>
                         @Html.ActionLink("Reportes", "", "", null, new { @class = "dropdown-item" })

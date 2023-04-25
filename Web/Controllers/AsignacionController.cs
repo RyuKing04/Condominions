@@ -14,8 +14,8 @@ namespace Web.Controllers
     public class AsignacionController : Controller
     {
         // GET: Asignacion
-        [CustomAuthorize(Roles.Administrador.ToString())]
-        public ActionResult Index(DateTime fecha) //agregar otro index para usuario para que lo filtre por usuario
+        //[CustomAuthorize(Roles.Administrador.ToString())]
+        public ActionResult Index(DateTime fecha) //el admin ve los usuarios con asignaciones del mes actual
         {
             IEnumerable<Asignacion> lista = null;
             try
@@ -33,8 +33,25 @@ namespace Web.Controllers
             return View(lista);
         }
 
+        public ActionResult IndexUsuario(int id) //el usuario ve sus propias asignaciones 
+        {
+            IEnumerable<Asignacion> lista = null;
+            try
+            {
+                IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();
+                lista = _ServiceAsignacion.GetAsignacionByIdUsuario(id);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos!" + ex.Message;
+                return RedirectToAction("Default", "Error");
+            }
+            return View(lista);
+        }
+
         // GET: Asignacion/Details/5
-        public ActionResult Details(int? id, bool active)
+        public ActionResult Details(int? id, bool active) // carga dependiendo si tiene deudas o no el usuario vista solo para el admin
         {
 
             IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();
@@ -98,7 +115,18 @@ namespace Web.Controllers
             return new SelectList(lista, "Id", "Descrpcion", listaPlanesSelect);
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        public ActionResult /*void*/ CambiarDeuda(int id)
+        {
+            IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();
+            Asignacion oAsignacion = _ServiceAsignacion.GetAsignacionbyId(id);
+            oAsignacion.Deuda = false;
+            oAsignacion.FechaPago = DateTime.Now;
+
+            _ServiceAsignacion.SaveAsignacion(oAsignacion);
+            return RedirectToAction("Index", "Reserva");
+        }
+
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Asignacion/Create
         public ActionResult Create()
         {

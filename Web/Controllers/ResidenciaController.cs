@@ -95,9 +95,42 @@ namespace Web.Controllers
         }
 
         // GET: Residencia/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            IServiceResidencia _ServiceResidencia = new ServiceResidencia();
+            Residencia residencia= null;
+
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                residencia = _ServiceResidencia.GetResidenciaByID(Convert.ToInt32(id));
+                if (residencia == null)
+                {
+                    TempData["Message"] = "No existe el libro solicitado";
+                    TempData["Redirect"] = "Libro";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+                //Listados
+
+                return View(residencia);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
         private SelectList listaUsuarios(ICollection<Usuario> usuarios = null)
         {

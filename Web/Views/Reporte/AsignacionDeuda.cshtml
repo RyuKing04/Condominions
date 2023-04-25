@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Infraestructure.Models.Asignacion>
+
+@{
+    ViewBag.Title = "Asignacion Deuda";
+}
+
+<h2>AsignacionDeuda</h2>
+
+<p>
+    @Html.ActionLink("Reporte PDF", "CreatePdfLibroCatalogo", "Reporte")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaPago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deuda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plan.Descrpcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Residencia.NoCondominio)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaPago)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Deuda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Plan.Descrpcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Residencia.NoCondominio)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

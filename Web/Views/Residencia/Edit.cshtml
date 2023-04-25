@@ -1,0 +1,58 @@
+﻿@model Infraestructure.Models.Residencia
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar la Residencia @Html.DisplayFor(model => model.NoCondominio)</h2>
+
+
+@using (Html.BeginForm("Save", "Residencia", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id)
+    @Html.HiddenFor(model => model.idUsuario)
+    @Html.HiddenFor(model => model.AnnoInicio)
+    @Html.HiddenFor(model => model.Estado)
+    @Html.HiddenFor(model => model.NoCondominio)
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col col-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CantPersonas, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CantPersonas, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CantPersonas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col col-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CantCarros, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CantCarros, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CantCarros, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-default" style="color:green" />
+        </div>
+    </div>
+</div>
+}
+
+<br />
+<p>
+    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Index", "Residencia")" class="btn btn-secondary"><i class="fa-solid fa-door-open"></i> Regresar</a>
+</p>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

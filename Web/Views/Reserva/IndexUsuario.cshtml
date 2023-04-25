@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Infraestructure.Models.Reserva>
+
+    @{
+    ViewBag.Title = "Reservas";
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fecha)
+            </th>
+            <th>
+                Horario
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+
+
+            <th> @Html.DisplayNameFor(model => model.AreaComun.foto)</th>
+        </tr>
+
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nombre) @Html.DisplayFor(modelItem => item.Usuario.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraInicio) a @Html.DisplayFor(modelItem => item.HoraFin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.AreaComun.foto)"
+                     alt="@Html.DisplayFor(modelItem => item.AreaComun.Descripcion)" class="img-thumbnail" style="height:150px" />
+            </td>
+
+        </tr>
+}
+
+    </table>

@@ -69,17 +69,18 @@ namespace Infraestructure.Repository
             }
         }
 
-        public IEnumerable<Reserva> GetReservaByUsuario(int idUsuario)
+        public IEnumerable<Reserva> GetReservaByUsuario(bool falso, int idUsuario)
         {
-            IEnumerable<Reserva> oReserva = null;
             try
             {
+                IEnumerable<Reserva> lista = null;
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oReserva = ctx.Reserva.Where(x => x.IdUsuario == idUsuario).Include("Usuario").ToList();
+                    lista = ctx.Reserva.Include(x => x.AreaComun).Include(x => x.Usuario).Where(x => x.Estado == falso).Where(x => x.IdUsuario == idUsuario).ToList<Reserva>();
                 }
-                return oReserva;
+                return lista; //true : HISTORIAL        false : NO ACEPTADAS
+
             }
 
             catch (DbUpdateException dbEx)

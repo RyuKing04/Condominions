@@ -61,16 +61,16 @@ namespace ApplicationCore.Service
             return repository.GetReserva(falso);
         }
 
-        public Reserva GetReservaByID(int id)
+        public  IEnumerable<Reserva> GetReservaByUsuario(bool falso,  int id)
         {
             IRepositoryReserva repository = new RepositoryReserva();
-            return repository.GetReservaByID(id);
+            return repository.GetReservaByUsuario(falso, id);
         }
 
-        public IEnumerable<Reserva> GetReservaByUsuario(int idUsuario)
+        public Reserva GetReservaByID (int idUsuario)
         {
             IRepositoryReserva repository = new RepositoryReserva();
-            return repository.GetReservaByUsuario(idUsuario);
+            return repository.GetReservaByID(idUsuario);
         }
 
         public Reserva Save(Reserva reserva)
