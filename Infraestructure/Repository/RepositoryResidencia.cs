@@ -145,7 +145,6 @@ namespace Infraestructure.Repository
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
                 oResidencia = GetResidenciaByID((int)residencia.id);
-                IRepositoryResidencia _RepositoryResidencia = new RepositoryResidencia();
 
                 if (oResidencia == null)
                 {

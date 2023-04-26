@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Service;
 using Infraestructure.Models;
+using Infraestructure.Repository;
 using Infraestructure.Utils;
 using iText.IO.Font.Constants;
 using iText.IO.Image;
@@ -41,13 +42,13 @@ namespace Web.Controllers
             //return View(lista);
         }
 
-        public ActionResult Ingresos(DateTime fecha)
+        public ActionResult Ingresos()
         {
             IEnumerable<Asignacion> lista = null;
             try
             {
-                IServiceAsignacion _ServiceReporte = new ServiceAsignacion();
-                lista = _ServiceReporte.GetAsignacion(fecha);
+                IRepositoryReporte _ServiceReporte = new RepositoryReporte();
+                lista = _ServiceReporte.GetAsignacion();
             }
             catch (Exception ex)
             {
@@ -63,14 +64,14 @@ namespace Web.Controllers
         {
             return View();
         }
-        public ActionResult AsignacionDeuda(DateTime fecha)
+        public ActionResult AsignacionDeuda()
         {
             IEnumerable<Asignacion> lista = null;
             try
             {
 
-                IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();
-                lista = _ServiceAsignacion.GetAsignacion(fecha);
+                IRepositoryReporte _ServiceReporte = new RepositoryReporte();
+                lista = _ServiceReporte.GetAsignacion();
                 return View(lista);
             }
             catch (Exception ex)
@@ -83,22 +84,40 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
-
+        public PartialViewResult DeudaxResidencia(int? id)
+        {
+            //Contenido a actualizar
+            IEnumerable<Asignacion> lista = null;
+            IServiceReporte _ServicioLibro = new ServiceReporte();
+            if (id != null)
+            {
+                lista = _ServicioLibro.GetAsignacionByIdResidencia((int)id);
+                //Convert.ToInt32(id)
+            }
+            //Nombre de vista parcial, datos para la vista
+            return PartialView("AsignacionDeuda", lista);
+        }
+        private SelectList listaResidencia(int idResidencia = 0)
+        {
+            IServiceResidencia _ServiceAutor = new ServiceResidencia();
+            IEnumerable<Residencia> listaResidencia = _ServiceAutor.GetResidencia();
+            return new SelectList(listaResidencia, "Id", "NoCondominio", idResidencia);
+        }
         /// <summary>
         /// https://riptutorial.com/itext
         /// Nugget iText7
         /// </summary>
         /// <returns></returns>
         /// 
-        public ActionResult CreatePdfLibroCatalogo(DateTime fecha)
+        public ActionResult CreatePdfLibroCatalogo()
         {
             //Ejemplos IText7 https://kb.itextpdf.com/home/it7kb/examples
             IEnumerable<Asignacion> lista = null;
             try
             {
                 // Extraer informacion
-                IServiceAsignacion _ServiceLibro = new ServiceAsignacion();
-                lista = _ServiceLibro.GetAsignacion(fecha);
+                IRepositoryReporte _ServiceReporte = new RepositoryReporte();
+                lista = _ServiceReporte.GetAsignacion();
 
                 // Crear stream para almacenar en memoria el reporte 
                 MemoryStream ms = new MemoryStream();
@@ -131,9 +150,7 @@ namespace Web.Controllers
                     table.AddCell(new Paragraph(String.Format("{0:dd-MM-yyyy}", item.FechaPago)));
                     table.AddCell(new Paragraph(String.Format("{0}", item.Deuda)));
                   
-                    // Convierte la imagen que viene en Bytes en imagen para PDF
-
-                    //Tamaño de la imagen
+                  
                 }
                 doc.Add(table);
 

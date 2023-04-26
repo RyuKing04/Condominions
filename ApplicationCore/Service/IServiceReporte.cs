@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infraestructure.Repository
+namespace ApplicationCore.Service
 {
-   public interface IRepositoryReporte
+    public interface IServiceReporte
     {
         IEnumerable<Asignacion> GetAsignacion();
         IEnumerable<Asignacion> GetAsignacionByIdResidencia(int idResidencia);

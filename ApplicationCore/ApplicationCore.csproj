@@ -46,6 +46,7 @@
     <Compile Include="Service\IServiceAsignacion.cs" />
     <Compile Include="Service\IServiceAvisos.cs" />
     <Compile Include="Service\IServicePlan.cs" />
+    <Compile Include="Service\IServiceReporte.cs" />
     <Compile Include="Service\IServiceReserva.cs" />
     <Compile Include="Service\IServiceResidencia.cs" />
     <Compile Include="Service\IServiceRubro.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Service\ServiceAsignacion.cs" />
     <Compile Include="Service\ServiceAvisos.cs" />
     <Compile Include="Service\ServicePlan.cs" />
+    <Compile Include="Service\ServiceReporte.cs" />
     <Compile Include="Service\ServiceReserva.cs" />
     <Compile Include="Service\ServiceResidencia.cs" />
     <Compile Include="Service\ServiceRubro.cs" />
