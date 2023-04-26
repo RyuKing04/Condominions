@@ -11,5 +11,6 @@ namespace ApplicationCore.Service
     {
         IEnumerable<Asignacion> GetAsignacion();
         IEnumerable<Asignacion> GetAsignacionByIdResidencia(int idResidencia);
+        IEnumerable<Asignacion> GetDeudas();
     }
 }

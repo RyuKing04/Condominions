@@ -16,5 +16,8 @@ namespace ApplicationCore.Service
         IEnumerable<Asignacion> GetAsignacionByIdResidencia(int idResidencia, bool activo);
         IEnumerable<Asignacion> GetAsignacionByIdUsuario(int idUsuario);
         IEnumerable<Asignacion> GetAsignacionByIdPlan(int idPlan);
+
+        void GetIngresosMes(out string etiquetas, out string valores);
+
     }
 }

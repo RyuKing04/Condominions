@@ -239,6 +239,7 @@
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Utils\SweetAlertHelper.cs" />
     <Compile Include="Utils\Utils.cs" />
+    <Compile Include="ViewModel\ViewModelGrafico.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker.css" />
@@ -315,6 +316,9 @@
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
     <None Include="Scripts\jquery-3.6.4.intellisense.js" />
+    <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\chart.min.js" />
+    <Content Include="Scripts\graficoChartJS.js" />
     <Content Include="Scripts\jquery-3.6.4.js" />
     <Content Include="Scripts\jquery-3.6.4.min.js" />
     <Content Include="Scripts\jquery-3.6.4.slim.js" />
@@ -462,6 +466,7 @@
     <Content Include="Views\Asignacion\IndexUsuario.cshtml" />
     <Content Include="Views\Residencia\Edit.cshtml" />
     <Content Include="Views\Shared\_MenuBase.cshtml" />
+    <Content Include="Views\Reporte\Ingresos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

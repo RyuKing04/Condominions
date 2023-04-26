@@ -21,5 +21,11 @@ namespace ApplicationCore.Service
             IRepositoryReporte repository= new RepositoryReporte();
             return repository.GetAsignacionByIdResidencia(idResidencia);
         }
+
+        public IEnumerable<Asignacion> GetDeudas()
+        {
+           IRepositoryReporte repository= new RepositoryReporte();
+            return repository.GetDeudas();
+        }
     }
 }

@@ -5,65 +5,71 @@
 }
 
 <h2>Asignacion Deuda</h2>
-<div class="col-lg-3">
-    <h1 class="my-4">Autor</h1>
-    <div class="list-group">
-        @foreach (var residencia in (List<Infraestructure.Models.Asignacion>)ViewBag.listaResidencia)
-        {
-            @Ajax.ActionLink(residencia.Residencia.NoCondominio.ToString(),//Texto para el usuario
-            "DeudaxResidencia",//Acción a llamar
-            new
+@*<div class="col-lg-3">
+        <h1 class="my-4">Autor</h1>
+        <div class="list-group">
+            @foreach (var residencia in (List<Infraestructure.Models.Asignacion>)ViewBag.listaResidencia)
             {
-                id = residencia.Id
-            },//Parámetros para la acción
-            new AjaxOptions
-            {
-                UpdateTargetId = "resultado",
-                InsertionMode = InsertionMode.Replace,
-                HttpMethod = "GET",
-            }, new { @class = "list-group-item" }
-           )
-        }
+                @Ajax.ActionLink(residencia.Residencia.NoCondominio.ToString(),//Texto para el usuario
+                "DeudaxResidencia",//Acción a llamar
+                new
+                {
+                    id = residencia.Id
+                },//Parámetros para la acción
+                new AjaxOptions
+                {
+                    UpdateTargetId = "resultado",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "GET",
+                }, new { @class = "list-group-item" }
+               )
+            }
+        </div>
+    </div>*@
+@using (Html.BeginForm("CreatePdfLibroCatalogo", "Reporte", FormMethod.Post))
+{
+    <div>
+        <label for="residence">Residence:</label>
+        @Html.DropDownList("Residencia", (IEnumerable<SelectListItem>)ViewBag.residencia, new { @class = "form-control" })
     </div>
-</div>
-<p>
-    @Html.ActionLink("Reporte PDF", "CreatePdfLibroCatalogo", "Reporte")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaPago)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deuda)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Plan.Descrpcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Residencia.NoCondominio)
-        </th>
-        <th></th>
-    </tr>
+    <div>
+        <label for="month">Month:</label>
 
-    @foreach (var item in Model)
-    {
+        @Html.DropDownList("Meses", (IEnumerable<SelectListItem>)ViewBag.mes, new { @class = "form-control" })
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary mt-3">Generate PDF</button>
+    </div>
+}
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaPago)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Deuda)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Plan.Descrpcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Residencia.NoCondominio)
-            </td>
-
+            <th>
+                @Html.DisplayNameFor(model => model.FechaPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plan.Descrpcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Residencia.NoCondominio)
+            </th>
+            <th></th>
         </tr>
-    }
+        
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaPago)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Plan.Descrpcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Residencia.NoCondominio)
+                </td>
 
-</table>
+            </tr>
+        }
+
+
+    </table>

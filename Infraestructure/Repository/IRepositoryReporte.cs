@@ -11,5 +11,6 @@ namespace Infraestructure.Repository
     {
         IEnumerable<Asignacion> GetAsignacion();
         IEnumerable<Asignacion> GetAsignacionByIdResidencia(int idResidencia);
+        IEnumerable<Asignacion> GetDeudas();
     }
 }

@@ -10,6 +10,15 @@ namespace ApplicationCore.Service
 {
     public class ServiceAsignacion : IServiceAsignacion
     {
+        public void GetIngresosMes(out string etiquetas1, out string valores1)
+        {
+            IRepositoryAsignacion repository = new RepositoryAsignacion();
+            repository.GetIngresosMes(out string etiquetas, out string valores);
+            etiquetas1 = etiquetas;
+            valores1 = valores;
+        }
+
+
         public IEnumerable<Asignacion> GetAsignacion(DateTime fecha)
         {
             if (fecha < DateTime.Now.AddYears(-10))

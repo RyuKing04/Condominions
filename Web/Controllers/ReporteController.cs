@@ -12,67 +12,75 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using Web.Utils;
+using Web.ViewModel;
 using Log = Web.Utils.Log;
 
 namespace Web.Controllers
 {
     public class ReporteController : Controller
     {
-        public ActionResult Deuda()
-        {
-            return View();
-            //IEnumerable<Asignacion> lista = null;
-            //try
-            //{
-            //    IServiceReporte _ServiceReporte = new ServiceReporte();
-            //    lista = _ServiceReporte.GetReporteDeuda(fecha);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Log.Error(ex, MethodBase.GetCurrentMethod());
-            //    TempData["Message"] = "Error al procesar los datos!" + ex.Message;
-            //    return RedirectToAction("Default", "Error");
-            //}
-            //return View(lista);
-        }
-
         public ActionResult Ingresos()
         {
-            IEnumerable<Asignacion> lista = null;
-            try
-            {
-                IRepositoryReporte _ServiceReporte = new RepositoryReporte();
-                lista = _ServiceReporte.GetAsignacion();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos!" + ex.Message;
-                return RedirectToAction("Default", "Error");
-            }
-            return View(lista);
-        }
+            IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();
+            ViewModelGrafico grafico = new ViewModelGrafico();
 
-        // GET: Reporte
-        public ActionResult Index()
-        {
+            _ServiceAsignacion.GetIngresosMes(out string etiquetas, out string valores);
+
+            grafico.Etiquetas = etiquetas;
+            grafico.Valores = valores;
+            int cantidadValores = valores.Split(',').Length;
+            grafico.Colores = string.Join(",", grafico.GenerateColors(cantidadValores));
+            grafico.titulo = "Total $";
+            grafico.tituloEtiquetas = "Ingresos anuales por mes de Condominions Caribbean";
+            //Tipos de gráficos: bar, bubble, doughnut, pie, line, polarArea
+            grafico.tipo = "pie";
+            ViewBag.grafico = grafico;
             return View();
         }
+
         public ActionResult AsignacionDeuda()
         {
-            IEnumerable<Asignacion> lista = null;
+
             try
             {
+                IEnumerable<Asignacion> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    // Obtener la lista de residencias disponibles
+                    var residencia = ctx.Residencia.ToList();
+                    // Crear la lista de opciones para el DropDownList de residencias
+                    List<SelectListItem> residenciaOptiones = residencia.Select(r => new SelectListItem
+                    {
+                        Text = r.NoCondominio.ToString(),
+                        Value = r.NoCondominio.ToString(),
+                    }).ToList();
 
-                IRepositoryReporte _ServiceReporte = new RepositoryReporte();
-                lista = _ServiceReporte.GetAsignacion();
-                return View(lista);
+
+
+                    // Pasar la lista de residencias a la vista
+                    ViewBag.residencia = residenciaOptiones;
+
+                    List<SelectListItem> months = new List<SelectListItem>();
+
+                    for (int i = 1; i <= 12; i++)
+                    {
+                        months.Add(new SelectListItem { Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i), Value = i.ToString() });
+                    }
+
+                    ViewBag.mes = months;
+                    IRepositoryReporte _ServiceReporte = new RepositoryReporte();
+                    lista = _ServiceReporte.GetDeudas();
+                    return View(lista);
+                }
             }
             catch (Exception ex)
             {
@@ -84,6 +92,7 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
+
         public PartialViewResult DeudaxResidencia(int? id)
         {
             //Contenido a actualizar
@@ -97,8 +106,10 @@ namespace Web.Controllers
             //Nombre de vista parcial, datos para la vista
             return PartialView("AsignacionDeuda", lista);
         }
+
         private SelectList listaResidencia(int idResidencia = 0)
         {
+
             IServiceResidencia _ServiceAutor = new ServiceResidencia();
             IEnumerable<Residencia> listaResidencia = _ServiceAutor.GetResidencia();
             return new SelectList(listaResidencia, "Id", "NoCondominio", idResidencia);
@@ -109,7 +120,7 @@ namespace Web.Controllers
         /// </summary>
         /// <returns></returns>
         /// 
-        public ActionResult CreatePdfLibroCatalogo()
+        public ActionResult CreatePdfLibroCatalogo(int? residencia, int? mes)
         {
             //Ejemplos IText7 https://kb.itextpdf.com/home/it7kb/examples
             IEnumerable<Asignacion> lista = null;
@@ -117,7 +128,9 @@ namespace Web.Controllers
             {
                 // Extraer informacion
                 IRepositoryReporte _ServiceReporte = new RepositoryReporte();
-                lista = _ServiceReporte.GetAsignacion();
+                lista = _ServiceReporte.GetDeudas().Where(p => (!residencia.HasValue || p.Residencia.NoCondominio == residencia.Value)
+           && (!mes.HasValue || p.FechaPago.Month == mes.Value));
+
 
                 // Crear stream para almacenar en memoria el reporte 
                 MemoryStream ms = new MemoryStream();
@@ -148,9 +161,8 @@ namespace Web.Controllers
                     table.AddCell(new Paragraph(item.Residencia.NoCondominio.ToString()));
                     table.AddCell(new Paragraph(item.Plan.Descrpcion));
                     table.AddCell(new Paragraph(String.Format("{0:dd-MM-yyyy}", item.FechaPago)));
-                    table.AddCell(new Paragraph(String.Format("{0}", item.Deuda)));
-                  
-                  
+                    table.AddCell((item.Deuda) ? "No pagado" : "Pagado");
+
                 }
                 doc.Add(table);
 
@@ -166,13 +178,14 @@ namespace Web.Controllers
                         559, 826, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0
                         );
                 }
-
+            
 
                 //Terminar document
                 doc.Close();
                 // Retorna un File
                 return File(ms.ToArray(), "application/pdf", "reporte.pdf");
 
+            
             }
             catch (Exception ex)
             {
@@ -185,6 +198,7 @@ namespace Web.Controllers
             }
         }
         // GET: Reporte/Details/5
+
         public ActionResult Details(int id)
         {
             return View();
