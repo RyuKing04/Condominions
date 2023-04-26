@@ -461,6 +461,7 @@
     <Content Include="Views\Reporte\AsignacionDeuda.cshtml" />
     <Content Include="Views\Asignacion\IndexUsuario.cshtml" />
     <Content Include="Views\Residencia\Edit.cshtml" />
+    <Content Include="Views\Shared\_MenuBase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

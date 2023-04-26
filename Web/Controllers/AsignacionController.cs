@@ -120,7 +120,6 @@ namespace Web.Controllers
             IServiceAsignacion _ServiceAsignacion = new ServiceAsignacion();
             Asignacion oAsignacion = _ServiceAsignacion.GetAsignacionbyId(id);
             oAsignacion.Deuda = false;
-            oAsignacion.FechaPago = DateTime.Now;
 
             _ServiceAsignacion.SaveAsignacion(oAsignacion);
             return RedirectToAction("Index", "Reserva");

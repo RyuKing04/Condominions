@@ -12,8 +12,22 @@ else
     <h2 style="text-align:center">Crear Incidencias</h2>
 }
 
+@* Información usuario *@
+@{
+    int cedula = 0;
+    String email = "Perfil";
 
-@using (Html.BeginForm("Save", "Aviso", new {activo= ViewBag.active},FormMethod.Post, new { enctype = "multipart/form-data" }))
+    if (Session["User"] != null)
+    {
+        Infraestructure.Models.Usuario usuario = new Infraestructure.Models.Usuario();
+        usuario = (Infraestructure.Models.Usuario)Session["User"];
+        cedula = usuario.Id;
+        email = usuario.Email;
+    }
+}
+
+
+@using (Html.BeginForm("Save", "Aviso", new { activo = ViewBag.active }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken() <div class="form-horizontal">
 
@@ -57,9 +71,8 @@ else
         <div class="form-group">
             @Html.LabelFor(model => model.Usuario, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("idUsuario",
-               (SelectList)ViewBag.listaUsuarios, "Seleccione su nombre...",
-               htmlAttributes: new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.idUsuario, new { @class = "form-control", @readonly = "readonly", @Value = cedula })
+                @Html.ValidationMessageFor(model => model.idUsuario, "", new { @class = "text-danger" })
             </div>
         </div>
         <br />

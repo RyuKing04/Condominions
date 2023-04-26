@@ -14,83 +14,86 @@ else
     <h2 style="text-align:center">Incidencias</h2>
 }
 
-<br />
-@*<div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-lg-4" style="margin: 0 auto">
-                <div class="card">
-                    @if (item.Documento != null)
-                    {
-                        <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="height:300px" />
-                    }
-                    <div class="card-body" style="text-align:center">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
-                        <a style="background:rgb(159, 126, 0)" href="@Url.Action("Details", "AreaComun", new { id = item.id })" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Detalle</a>
-                    </div>
-                </div>
-                <br />
-            </div>
-        }
-    </div>*@
 
-    <table class="table">
+@* Información usuario *@
+@{
+    int cedula = 0;
+
+    if (Session["User"] != null)
+    {
+        Infraestructure.Models.Usuario usuario = new Infraestructure.Models.Usuario();
+        usuario = (Infraestructure.Models.Usuario)Session["User"];
+        cedula = usuario.Id;
+    }
+}
+
+
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        @if (!ViewBag.active)
+        {
+            <!--INCIDENCIA-->
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoTipoInfo)
+            </th>
+        }
+        <th>
+            @Html.DisplayNameFor(model => model.Documento)
+        </th>
+        @if (cedula > 1)
+        {
+            <td></td>
+        }
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
             @if (!ViewBag.active)
             {
                 <!--INCIDENCIA-->
-                <th>
-                    @Html.DisplayNameFor(model => model.EstadoTipoInfo)
-                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoTipoInfo)
+                </td>
             }
-            <th>
-                @Html.DisplayNameFor(model => model.Documento)
-            </th>
-            <td></td>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-                @if (!ViewBag.active)
+            <td>
+                @if (item.Documento != null)
                 {
-                    <!--INCIDENCIA-->
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EstadoTipoInfo)
-                    </td>
+                    <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="width:300px" />
                 }
-                <td>
-                    @if (item.Documento != null)
-                    {
-                        <img src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)" alt="@Html.DisplayFor(modelItem => item.Descripcion)" class="img-thumbnail" style="width:300px" />
-                    }
 
-                </td>
-                @if (ViewBag.active)
+            </td>
+            @if (cedula < 2)
+            {
+                if (ViewBag.active)
                 {
+
                     <!--INFORMACION-->
                     <td>
-                        <a style="background:rgb(159, 126, 0)" href="@Url.Action("Edit", "Aviso", new { id = item.id , active= ViewBag.active})" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>
+                        <a style="background:rgb(159, 126, 0)" href="@Url.Action("Edit", "Aviso", new { id = item.id, active = ViewBag.active })" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</a>
                         @*@if (item.Documento != null)
                             {
                                 <a style="background:rgb(159, 126, 0)" class="btn btn-secondary" href="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Documento)">Descargar</a>
                             }
-                        
+
                             COMO HACER PARA DESCARGAR LOS ARCHIVOS
-                            *@
+                        *@
                     </td>
                 }
                 else
@@ -104,30 +107,33 @@ else
                             }*@
                     </td>
                 }
-
-
-            </tr>
-        }
-
-    </table>
-    <br />
-<p>
-    <a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Aviso", new {active=ViewBag.active})" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>
-</p>
-
-<script type="text/javascript">
-    function detalle(id) {
-        $.ajax({
-            method: 'POST',
-            url: '/Aviso/CambiarEstado',
-            data: { 'id': id },
-            success: function (response) {
-                $('.modal-body').html('');
-                $('.modal-body').html(response);
-                $('#myModal').modal('show');
-            }, error: function (xhr, status, error) {
-                console.log('Error' + error + ',No Error' + xhr.status);
             }
-        })
+
+        </tr>
     }
-</script>
+
+</table>
+<br />
+@if (cedula < 2)
+{
+
+    <p>
+        <a style="background:rgb(159, 126, 0)" href="@Url.Action("Create", "Aviso", new { active = ViewBag.active })" class="btn btn-secondary"><i class="fa-solid fa-square-plus"></i> Crear</a>
+    </p>
+}
+    <script type="text/javascript">
+        function detalle(id) {
+            $.ajax({
+                method: 'POST',
+                url: '/Aviso/CambiarEstado',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+    </script>
